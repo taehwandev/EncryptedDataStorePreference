@@ -5,73 +5,88 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.datastore.preferences.core.preferencesOf
+import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import tech.thdev.encrypteddatastorepreference.preference.UserPreferencesImpl
 import tech.thdev.encrypteddatastorepreference.ui.theme.EncryptedDataStorePreferenceTheme
+import tech.thdev.samplepreference.SamplePreferences
+import tech.thdev.samplepreference.generateSamplePreferences
 
 class MainActivity : ComponentActivity() {
 
     private val Context.dataStore by preferencesDataStore(name = "user-preference")
 
+    private val samplePreference: SamplePreferences by lazy {
+        dataStore.generateSamplePreferences()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val userPreference = UserPreferencesImpl(dataStore)
-
-                val coroutineScope = CoroutineScope(Dispatchers.IO)
-        coroutineScope.launch {
-            userPreference.getUserId()
-                .onEach {
-                    Toast.makeText(this@MainActivity, "UserId $it", Toast.LENGTH_SHORT).show()
-                }
-                .flowOn(Dispatchers.Main)
-                .launchIn(this)
-        }
-
-        var count = 0
-        coroutineScope.launch {
-            (0..1).forEach { _ ->
-                userPreference.setUserId("UserId ${++count}")
-                delay(1_000L)
-            }
-        }
-
         setContent {
             EncryptedDataStorePreferenceTheme {
+                LaunchedEffect(key1 = samplePreference) {
+                    samplePreference.getString()
+                        .onEach {
+                            Toast.makeText(this@MainActivity, "UserId $it", Toast.LENGTH_SHORT).show()
+                        }
+                        .flowOn(Dispatchers.Main)
+                        .launchIn(this)
+                }
+
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    val coroutineScope = rememberCoroutineScope()
+                    MainContainer("Android") {
+                        coroutineScope.launch {
+                            samplePreference.setString("String test current count : ${++count}")
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+private var count = 0
+
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+internal fun MainContainer(
+    name: String,
+    buttonClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp)
+    ) {
+        Text(text = "Hello $name!")
+        Button(onClick = buttonClick) {
+            Text(text = "Preference test")
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun PreviewMainContainer() {
     EncryptedDataStorePreferenceTheme {
-        Greeting("Android")
+        MainContainer("Android") {}
     }
 }

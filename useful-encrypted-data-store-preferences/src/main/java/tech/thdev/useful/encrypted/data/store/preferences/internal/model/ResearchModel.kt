@@ -5,7 +5,6 @@ import com.google.devtools.ksp.symbol.KSName
 
 data class ResearchModel(
     val targetClassDeclaration: KSClassDeclaration,
-    val getValueModel: List<ValueModel.Get>,
-    val setValueModel: List<ValueModel.Set>,
+    val valueModels: List<ValueModel>,
     val mergeKeyModel: Map<String, KSName>,
 )

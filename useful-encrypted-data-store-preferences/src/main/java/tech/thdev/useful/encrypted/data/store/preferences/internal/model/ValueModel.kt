@@ -8,17 +8,19 @@ sealed interface ValueModel {
     val key: String
     val functionInfo: KSFunctionDeclaration
     val valueType: KSName
+    val isSuspend: Boolean
 
     data class Set(
         override val key: String,
         override val functionInfo: KSFunctionDeclaration,
         override val valueType: KSName,
-        val isSuspend: Boolean,
+        override val isSuspend: Boolean,
     ) : ValueModel
 
     data class Get(
         override val key: String,
         override val functionInfo: KSFunctionDeclaration,
         override val valueType: KSName,
+        override val isSuspend: Boolean,
     ) : ValueModel
 }

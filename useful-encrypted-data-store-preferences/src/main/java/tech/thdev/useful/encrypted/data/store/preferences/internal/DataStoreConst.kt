@@ -26,4 +26,11 @@ internal object DataStoreConst {
     val PREF_PREFERENCES = ClassName("androidx.datastore.preferences.core", "Preferences")
     val PREF_PREFERENCES_KEY = ClassName("androidx.datastore.preferences.core", "Preferences.Key")
     val PREF_DATA_STORE = ClassName("androidx.datastore.core", "DataStore")
+    val PREF_DATA_STORE_EDIT = ClassName("androidx.datastore.preferences.core", "edit")
+    const val PREF_IMPL_PRIMARY_PROPERTY = "preferencesStore"
+
+    // Coroutine
+    val FLOW = ClassName("kotlinx.coroutines.flow", "Flow")
+    val FLOW_MAP = ClassName("kotlinx.coroutines.flow", "map")
+    val FLOW_FIRST = ClassName("kotlinx.coroutines.flow", "first")
 }

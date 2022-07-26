@@ -16,3 +16,4 @@ rootProject.name = "EncryptedDataStorePreference"
 include ':app'
 include ':useful-encrypted-data-store-preferences'
 include ':useful-encrypted-data-store-preferences-annotations'
+include ':SamplePreferenceRepository'

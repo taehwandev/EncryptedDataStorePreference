@@ -5,8 +5,10 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import tech.thdev.useful.encrypted.data.store.preferences.internal.DataStoreConst
-import tech.thdev.useful.encrypted.data.store.preferences.internal.findAnnotation
+import tech.thdev.useful.encrypted.data.store.preferences.internal.filterAnnotation
 import tech.thdev.useful.encrypted.data.store.preferences.internal.findKeyArgument
+import tech.thdev.useful.encrypted.data.store.preferences.internal.getReturnElement
+import tech.thdev.useful.encrypted.data.store.preferences.internal.getReturnResolve
 import tech.thdev.useful.encrypted.data.store.preferences.internal.hasSuspend
 import tech.thdev.useful.encrypted.data.store.preferences.internal.model.ResearchModel
 import tech.thdev.useful.encrypted.data.store.preferences.internal.model.ValueModel
@@ -28,82 +30,59 @@ internal fun Resolver.findUsefulPreferences(
         .map { classDeclaration ->
             val declaredFunctions = classDeclaration.getDeclaredFunctions()
 
-            val getValues = declaredFunctions
+            val findDeclaredFunctions = declaredFunctions
                 .filter { functionDeclaration ->
-                    functionDeclaration.findAnnotation(DataStoreConst.ANNOTATION_GET_VALUE.simpleName)
+                    functionDeclaration.filterAnnotation {
+                        it == DataStoreConst.ANNOTATION_GET_VALUE.simpleName || it == DataStoreConst.ANNOTATION_SET_VALUE.simpleName
+                    }
                 }
                 .mapNotNull { functionDeclaration ->
                     functionDeclaration
                         .findKeyArgument()?.let { key ->
-                            functionDeclaration.returnType?.element?.typeArguments?.firstOrNull()?.type?.resolve()?.declaration?.qualifiedName?.let { returnType ->
-                                ValueModel.Get(
-                                    key = key,
-                                    functionInfo = functionDeclaration,
-                                    valueType = returnType,
-                                )
+                            when (functionDeclaration.annotations.first().shortName.asString()) {
+                                DataStoreConst.ANNOTATION_GET_VALUE.simpleName -> {
+                                    // First, the return type is found in the element.
+                                    // If there is no information, a non generic type is searched through resolve().
+                                    (functionDeclaration.getReturnElement()?.simpleName
+                                        ?: functionDeclaration.getReturnResolve()?.simpleName)?.let { returnType ->
+                                        ValueModel.Get(
+                                            key = key,
+                                            functionInfo = functionDeclaration,
+                                            valueType = returnType,
+                                            isSuspend = functionDeclaration.modifiers.hasSuspend(),
+                                        )
+                                    }
+                                }
+                                else -> {
+                                    functionDeclaration.parameters.firstOrNull()?.type?.resolve()?.declaration?.qualifiedName?.let { parameters ->
+                                        ValueModel.Set(
+                                            key = key,
+                                            functionInfo = functionDeclaration,
+                                            isSuspend = functionDeclaration.modifiers.hasSuspend(),
+                                            valueType = parameters,
+                                        )
+                                    }
+                                }
                             }
                         }
                 }
-                .toList()
                 .onEach {
-                    logger.writeLogger("Find getValue key : ${it.key}")
-//                    it.functionInfo.modifiers.forEach {
-//                        logger.warn("it.functionInfo.modifiers ${it.name}")
-//                    }
-//                    logger.warn("return type? ${it.functionInfo.returnType?.resolve()?.declaration?.simpleName?.asString()}")
-//                    logger.warn("return type? ${it.functionInfo.returnType?.resolve()?.declaration?.typeParameters?.lastOrNull()}")
-//                    logger.warn("return type? ${it.functionInfo.returnType?.resolve()?.declaration?.qualifiedName?.asString()}")
-//                    logger.warn("return type? ${it.functionInfo.returnType?.element?.typeArguments?.firstOrNull()}")
-//                    logger.warn("return type? ${it.functionInfo.returnType?.element?.typeArguments?.firstOrNull()?.type?.resolve()?.declaration?.simpleName?.asString()}")
-//                    logger.warn("return type? ${it.functionInfo.functionKind.name}")
-//                    logger.warn("return type? ${it.functionInfo.simpleName.asString()}")
-//                    logger.warn("return type? ${it.functionInfo.parameters?.firstOrNull()}")
-//                    logger.warn("return type? ${it.functionInfo.isExpect}")
-//                    logger.warn("return type? ${it.functionInfo.isAbstract}")
-//                    logger.warn("return type? ${it.functionInfo.extensionReceiver}")
-//                    logger.warn("return type? ${it.functionInfo.parameters}")
-                }
-
-            logger.writeLogger("-------------------")
-
-            val setValues = declaredFunctions
-                .filter { functionDeclaration ->
-                    functionDeclaration.findAnnotation(DataStoreConst.ANNOTATION_SET_VALUE.simpleName)
-                }
-                .mapNotNull { functionDeclaration ->
-                    functionDeclaration
-                        .findKeyArgument()?.let { key ->
-                            functionDeclaration.parameters.firstOrNull()?.type?.resolve()?.declaration?.qualifiedName?.let { parameters ->
-                                ValueModel.Set(
-                                    key = key,
-                                    functionInfo = functionDeclaration,
-                                    isSuspend = functionDeclaration.modifiers.hasSuspend(),
-                                    valueType = parameters,
-                                )
-                            }
-                        }
+                    logger.writeLogger("------ Find new key info : ${it.key}")
+                    logger.writeLogger("function name : ${it.functionInfo.simpleName.asString()}")
+                    it.functionInfo.modifiers.forEach {
+                        logger.writeLogger("function modifier : ${it.name}")
+                    }
+                    logger.writeLogger("return type default : ${it.functionInfo.getReturnResolve()?.simpleName?.asString()}")
+                    logger.writeLogger("return type full name : ${it.functionInfo.getReturnResolve()?.qualifiedName?.asString()}")
+                    logger.writeLogger("return type generic : ${it.functionInfo.getReturnResolve()?.typeParameters?.lastOrNull()}")
+                    logger.writeLogger("return type generic type name : ${it.functionInfo.getReturnElement()?.simpleName?.asString()}")
+                    logger.writeLogger("parameter name : ${it.functionInfo.parameters.firstOrNull()}")
+                    logger.writeLogger("parameter type : ${it.functionInfo.parameters.firstOrNull()?.type?.resolve()?.declaration?.simpleName?.asString()}\n")
                 }
                 .toList()
-                .onEach {
-//                    it.functionInfo.parameters.forEach {
-//                        logger.warn("ksValueParameter ${it.name?.asString()}")
-//                    }
-//                    it.functionInfo.modifiers.forEach {
-//                        logger.warn("it.functionInfo.modifiers ${it.name}")
-//                    }
-//
-//                    logger.warn("it.functionInfo.returnType?.element?.typeArguments?.firstOrNull() ${it.functionInfo.returnType?.element?.typeArguments?.firstOrNull()}")
-//                    logger.warn("it.functionInfo.functionKind.name ${it.functionInfo.functionKind.name}")
-//                    logger.warn("it.functionInfo.simpleName.asString() ${it.functionInfo.simpleName.asString()}")
-//                    logger.warn("it.functionInfo.parameters.firstOrNull() ${it.functionInfo.parameters.firstOrNull()}")
-//                    logger.warn("it.functionInfo.parameters.firstOrNull()?.type?.resolve()?.declaration?.simpleName?.asString() ${it.functionInfo.parameters.firstOrNull()?.type?.resolve()?.declaration?.simpleName?.asString()}")
-//                    logger.warn("it.functionInfo.functionKind ${it.functionInfo.findOverridee()?.typeParameters}")
-//                    logger.warn("it.key ${it.key}")
-                    logger.writeLogger("Find setValue key : ${it.key}")
-                }
 
             // list merge
-            val mergeMap = (getValues + setValues).associateBy(
+            val mergeMap = findDeclaredFunctions.associateBy(
                 keySelector = {
                     it.key
                 },
@@ -114,8 +93,7 @@ internal fun Resolver.findUsefulPreferences(
 
             ResearchModel(
                 targetClassDeclaration = classDeclaration,
-                getValueModel = getValues,
-                setValueModel = setValues,
+                valueModels = findDeclaredFunctions,
                 mergeKeyModel = mergeMap
             )
         }

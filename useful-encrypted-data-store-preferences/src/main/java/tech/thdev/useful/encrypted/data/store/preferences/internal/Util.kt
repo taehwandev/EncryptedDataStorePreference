@@ -3,14 +3,15 @@ package tech.thdev.useful.encrypted.data.store.preferences.internal
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
+import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.Modifier
 import com.squareup.kotlinpoet.FileSpec
 import java.io.OutputStreamWriter
 
-internal fun KSFunctionDeclaration.findAnnotation(findAnnotationName: String): Boolean =
+internal fun KSFunctionDeclaration.filterAnnotation(predicate: (name: String) -> Boolean): Boolean =
     annotations.firstOrNull { ksAnnotated ->
-        ksAnnotated.shortName.asString() == findAnnotationName
+        predicate(ksAnnotated.shortName.asString())
     } != null
 
 /**
@@ -32,6 +33,15 @@ internal fun KSPLogger.writeLogger(message: String) {
     }
 }
 
+internal fun KSFunctionDeclaration.getReturnElement(): KSDeclaration? =
+    returnType?.element?.typeArguments?.firstOrNull()?.type?.resolve()?.declaration
+
+internal fun KSFunctionDeclaration.getReturnResolve(): KSDeclaration? =
+    returnType?.resolve()?.declaration
+
+internal fun KSFunctionDeclaration.hasFlow(): Boolean =
+    getReturnResolve()?.simpleName?.asString() == DataStoreConst.FLOW.simpleName
+
 internal fun FileSpec.writeTo(
     codeGenerator: CodeGenerator,
     packageName: String,
@@ -48,3 +58,18 @@ internal fun FileSpec.writeTo(
 
 internal fun String.upperKey(): String =
     replace("-", "_").uppercase()
+
+/**
+ * Default value
+ */
+internal fun String.generateDefaultValue(): String = when (this) {
+    Int::class.simpleName -> "0"
+    Double::class.simpleName -> "0.0"
+    String::class.simpleName -> "\"\""
+    Boolean::class.simpleName -> "false"
+    Float::class.simpleName -> "0.0f"
+    Long::class.simpleName -> "0L"
+    else -> {
+        throw Exception("Useful Preference generate is Not support type $this")
+    }
+}
