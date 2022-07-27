@@ -14,6 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "EncryptedDataStorePreference"
 include ':app'
-include ':useful-encrypted-data-store-preferences'
-include ':useful-encrypted-data-store-preferences-annotations'
+include ':useful-encrypted-data-store-preferences-keystore'
+include ':useful-encrypted-data-store-preferences-ksp'
+include ':useful-encrypted-data-store-preferences-ksp-annotations'
 include ':SamplePreferenceRepository'

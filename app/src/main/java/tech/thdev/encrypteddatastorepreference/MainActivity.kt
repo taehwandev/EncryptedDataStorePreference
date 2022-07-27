@@ -25,16 +25,18 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import tech.thdev.encrypteddatastorepreference.preference.Sample
+import tech.thdev.encrypteddatastorepreference.preference.SampleImpl
 import tech.thdev.encrypteddatastorepreference.ui.theme.EncryptedDataStorePreferenceTheme
-import tech.thdev.samplepreference.SamplePreferences
-import tech.thdev.samplepreference.generateSamplePreferences
 
 class MainActivity : ComponentActivity() {
 
-    private val Context.dataStore by preferencesDataStore(name = "user-preference")
+    private val Context.dataStore by preferencesDataStore(name = "sample-preference")
 
-    private val samplePreference: SamplePreferences by lazy {
-        dataStore.generateSamplePreferences()
+    private val samplePreference: Sample by lazy {
+        SampleImpl(
+            dataStore,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             EncryptedDataStorePreferenceTheme {
                 LaunchedEffect(key1 = samplePreference) {
-                    samplePreference.getString()
+                    samplePreference.getInt()
                         .onEach {
                             Toast.makeText(this@MainActivity, "UserId $it", Toast.LENGTH_SHORT).show()
                         }
@@ -56,6 +58,7 @@ class MainActivity : ComponentActivity() {
                     MainContainer("Android") {
                         coroutineScope.launch {
                             samplePreference.setString("String test current count : ${++count}")
+                            samplePreference.setInt(++count)
                         }
                     }
                 }

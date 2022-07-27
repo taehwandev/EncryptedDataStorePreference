@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'tech.thdev.encrypteddatastorepreference'
-    compileSdk 33
+    compileSdk compile_sdk_version
 
     defaultConfig {
         applicationId "tech.thdev.encrypteddatastorepreference"
-        minSdk 21
-        targetSdk 33
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
         versionCode 1
         versionName "1.0"
 
@@ -57,6 +57,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation(project(":SamplePreferenceRepository"))
+    implementation(project(":useful-encrypted-data-store-preferences-keystore"))
+
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

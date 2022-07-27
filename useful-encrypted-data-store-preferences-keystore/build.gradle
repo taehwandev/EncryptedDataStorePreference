@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.devtools.ksp'
 }
 
 android {
-    namespace 'tech.thdev.samplepreference.repository'
+    namespace 'tech.thdev.samplepreference'
     compileSdk compile_sdk_version
 
     defaultConfig {
@@ -29,21 +28,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildTypes {
-        sourceSets.getByName("debug") {
-            kotlin.srcDir("build/generated/ksp/debug/kotlin")
-        }
-        sourceSets.getByName("release") {
-            kotlin.srcDir("build/generated/ksp/release/kotlin")
-        }
-    }
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     implementation "androidx.datastore:datastore-preferences-core:1.0.0"
-
-    ksp(project(":useful-encrypted-data-store-preferences-ksp"))
-    implementation(project(":useful-encrypted-data-store-preferences-ksp-annotations"))
-    implementation(project(":useful-encrypted-data-store-preferences-keystore"))
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 }
