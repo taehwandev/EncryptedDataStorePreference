@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Sample {
 
-    fun getInt(): Flow<Int>
+//    fun getInt(): Flow<Int>
 
     suspend fun setInt(value: Int)
 
@@ -12,7 +12,7 @@ interface Sample {
 
     suspend fun setDouble(value: Double)
 
-    fun getString(): Flow<String>
+//    fun getString(): Flow<String>
 
     suspend fun setString(value: String)
 

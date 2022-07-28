@@ -44,12 +44,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             EncryptedDataStorePreferenceTheme {
                 LaunchedEffect(key1 = samplePreference) {
-                    samplePreference.getInt()
-                        .onEach {
-                            Toast.makeText(this@MainActivity, "UserId $it", Toast.LENGTH_SHORT).show()
-                        }
-                        .flowOn(Dispatchers.Main)
-                        .launchIn(this)
+//                    samplePreference.getString()
+//                        .onEach {
+//                            Toast.makeText(this@MainActivity, "UserId $it", Toast.LENGTH_SHORT).show()
+//                        }
+//                        .flowOn(Dispatchers.Main)
+//                        .launchIn(this)
                 }
 
                 // A surface container using the 'background' color from the theme
@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                     MainContainer("Android") {
                         coroutineScope.launch {
                             samplePreference.setString("String test current count : ${++count}")
-                            samplePreference.setInt(++count)
+//                            samplePreference.setInt(++count)
                         }
                     }
                 }

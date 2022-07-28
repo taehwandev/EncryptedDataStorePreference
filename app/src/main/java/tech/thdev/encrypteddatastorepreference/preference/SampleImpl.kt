@@ -6,26 +6,25 @@ import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import tech.thdev.useful.encrypted.data.store.preferences.keystore.EncryptedHelper
-import tech.thdev.useful.encrypted.data.store.preferences.keystore.editEncrypted
-import tech.thdev.useful.encrypted.data.store.preferences.keystore.mapDecrypted
+import tech.thdev.useful.encrypted.data.store.preferences.keystore.editEncrypt
 
 class SampleImpl(
     private val preferencesStore: DataStore<Preferences>,
     private val encryptedHelper: EncryptedHelper = EncryptedHelper("my-app"),
 ) : Sample {
-    public override fun getInt(): Flow<Int> = preferencesStore.data
-        .mapDecrypted(encryptedHelper) {
-            android.util.Log.d("TEMP", "default? ${it[SampleKeys.KEY_INT] ?: ""}")
-            it[SampleKeys.KEY_INT] ?: ""
-        }
-        .map {
-            android.util.Log.d("TEMP", "default? ${it ?: "0"}")
-            it as? Int ?: 0
-        }
+//    public override fun getInt(): Flow<Int> = preferencesStore.data
+//        .mapDecrypted(encryptedHelper) {
+//            android.util.Log.d("TEMP", "default? ${it[SampleKeys.KEY_INT] ?: ""}")
+//            it[SampleKeys.KEY_INT] ?: ""
+//        }
+//        .map {
+//            android.util.Log.d("TEMP", "default? ${it ?: "0"}")
+//            it as? Int ?: 0
+//        }
 
     public override suspend fun setInt(`value`: Int): Unit {
-        preferencesStore.editEncrypted(encryptedHelper, value) { preferences, value ->
-            preferences[SampleKeys.KEY_INT] = value
+        preferencesStore.editEncrypt(encryptedHelper, value) { preferences, encrypted ->
+            preferences[SampleKeys.KEY_INT] = encrypted
         }
     }
 
@@ -40,14 +39,16 @@ class SampleImpl(
         }
     }
 
-    public override fun getString(): Flow<String> = preferencesStore.data
-        .map {
-            it[SampleKeys.KEY_STRING] ?: ""
-        }
+//    public override fun getString(): Flow<String> = preferencesStore.data
+//        .mapDecrypted(encryptedHelper) {
+//            android.util.Log.d("TEMP", "default? ${it[SampleKeys.KEY_STRING] ?: ""}")
+//            it[SampleKeys.KEY_STRING] ?: ""
+//        }
+//        .filterNotNull()
 
     public override suspend fun setString(`value`: String): Unit {
-        preferencesStore.edit {
-            it[SampleKeys.KEY_STRING] = value
+        preferencesStore.editEncrypt(encryptedHelper, value) { preferences, value ->
+            preferences[SampleKeys.KEY_STRING] = value
         }
     }
 
