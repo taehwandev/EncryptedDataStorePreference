@@ -7,15 +7,15 @@ import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-suspend inline fun <reified T> DataStore<Preferences>.editEncrypt(
+suspend inline fun DataStore<Preferences>.editEncrypt(
     encryptedHelper: EncryptedHelper,
-    value: T,
+    value: Any,
     crossinline body: (preferences: MutablePreferences, encrypted: String) -> Unit
 ) {
     edit { preferences ->
         encryptedHelper.encryptData(value.toString())?.let {
-            encryptedHelper.decryptData(it)
-            body(preferences, it.toString())
+//            encryptedHelper.decryptData(it)
+            body(preferences, it)
         }
     }
 }
@@ -25,7 +25,5 @@ inline fun Flow<Preferences>.mapDecrypt(
     crossinline body: (preferences: Preferences) -> String
 ): Flow<String?> =
     map { preferences ->
-        val data = body(preferences).split(",").map { it.toByte() }.toByteArray()
-        android.util.Log.d("TEMP", "load data? $data")
-        encryptedHelper.decryptData(data)
+        encryptedHelper.decryptData(body(preferences))
     }

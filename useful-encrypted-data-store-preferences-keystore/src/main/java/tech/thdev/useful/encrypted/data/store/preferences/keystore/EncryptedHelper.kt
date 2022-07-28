@@ -12,16 +12,26 @@ class EncryptedHelper(
     private val alias: String,
 ) {
 
-    private val cipher by lazy {
-        Cipher.getInstance("AES/GCM/NoPadding")
-    }
-
     private val keyGenerator by lazy {
         KeyGenerator.getInstance(
             KeyProperties.KEY_ALGORITHM_AES,
             androidKeyStore,
         )
     }
+
+    private fun generateEncryptKey(): SecretKey =
+        keyGenerator.also {
+            it.init(
+                KeyGenParameterSpec
+                    .Builder(
+                        alias,
+                        KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+                    )
+                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                    .build()
+            )
+        }.generateKey()
 
     /**
      * Load the Android KeyStore instance using the
@@ -34,47 +44,39 @@ class EncryptedHelper(
         }
     }
 
-    private val parameterSpec: KeyGenParameterSpec
-        get() {
-            return KeyGenParameterSpec.Builder(
-                alias,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-            ).run {
-                setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                build()
-            }
-        }
-
-    private fun generateEncryptKey(): SecretKey =
-        keyGenerator.also {
-            it.init(parameterSpec)
-        }.generateKey()
-
-    fun encryptData(data: String): ByteArray {
-        var temp = data
-        while (temp.toByteArray().size % 16 != 0) {
-            temp += "\u0020"
-        }
-
-        android.util.Log.d("TEMP", "encryptData $data, temp.toByteArray(Charsets.UTF_8) ${temp.toByteArray(Charsets.UTF_8)}")
+    @Synchronized
+    fun encryptData(data: String): String {
+        android.util.Log.d("TEMP", "encryptData $data, temp.toByteArray(Charsets.UTF_8) ${data.toByteArray(Charsets.UTF_8)}")
+        val cipher = Cipher.getInstance(CIPHER_OPTION)
         cipher.init(Cipher.ENCRYPT_MODE, generateEncryptKey())
-        val final = cipher.doFinal(temp.toByteArray(Charsets.UTF_8))
+        val final = cipher.doFinal(data.toByteArray())
         android.util.Log.d("TEMP", "encrypt final $final")
-        return final
+        android.util.Log.d("TEMP", "encrypt final ${final.decodeToString()}")
+        android.util.Log.i("TEMP", "cipher.iv size : ${cipher.iv.size} data :  ${cipher.iv.decodeToString()}")
+        return cipher.iv.joinToString(",") + "|" + final.joinToString(",")
     }
 
-    fun decryptData(encryptedData: ByteArray): String? {
-        android.util.Log.i("TEMP", "decryptData $encryptedData")
-        return (keyStore.getEntry(alias, null) as? KeyStore.SecretKeyEntry)?.let { key ->
-            cipher.init(Cipher.DECRYPT_MODE, key.secretKey, GCMParameterSpec(128, cipher.iv))
-            val value = cipher.doFinal(encryptedData).toString()
+    @Synchronized
+    fun decryptData(encryptData: String): String {
+        if (encryptData.isEmpty()) return ""
+
+        val allEncrypted = encryptData.split("|")
+        val encryptIv = allEncrypted.first().split(",").map { it.toByte() }.toByteArray()
+        val encryptTarget = allEncrypted.last().split(",").map { it.toByte() }.toByteArray()
+
+        android.util.Log.w("TEMP", "decryptData? $encryptTarget")
+        android.util.Log.i("TEMP", "decryptData ${String(encryptTarget)}")
+        val key = keyStore.getEntry(alias, null) as KeyStore.SecretKeyEntry
+        android.util.Log.d("TEMP", "key? ${key.secretKey}")
+        val cipher = Cipher.getInstance(CIPHER_OPTION)
+        cipher.init(Cipher.DECRYPT_MODE, key.secretKey, GCMParameterSpec(128, encryptIv))
+        val value = String(cipher.doFinal(encryptTarget))
         android.util.Log.d("TEMP", "decrypt Data final $value")
         return value
-        }
     }
 
     companion object {
         private const val androidKeyStore = "AndroidKeyStore"
+        private const val CIPHER_OPTION = "AES/GCM/NoPadding"
     }
 }
