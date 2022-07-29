@@ -30,7 +30,7 @@ internal fun KSFunctionDeclaration.findKeyArgument(): String? =
  */
 internal fun KSClassDeclaration.findDisableEncrypted(): Boolean =
     annotations.firstOrNull()?.arguments?.firstOrNull { ksValueArgument ->
-        ksValueArgument.name?.asString() == DataStoreConst.ANNOTATION_DISABLE_ENCRYPTED
+        ksValueArgument.name?.asString() == DataStoreConst.ANNOTATION_DISABLE_SECURITY
     }?.let { ksValueArgument ->
         ksValueArgument.value as Boolean
     } ?: false
@@ -77,6 +77,21 @@ internal fun String.generateDefaultValue(): String = when (this) {
     Boolean::class.simpleName -> "false"
     Float::class.simpleName -> "0.0f"
     Long::class.simpleName -> "0L"
+    else -> {
+        throw Exception("Useful Preference generate is Not support type $this")
+    }
+}
+
+/**
+ * Default value
+ */
+internal fun String.convertEncryptType(): String = when (this) {
+    Int::class.simpleName -> DataStoreConst.USEFUL_TYPE_INT
+    Double::class.simpleName -> DataStoreConst.USEFUL_TYPE_DOUBLE
+    String::class.simpleName -> DataStoreConst.USEFUL_TYPE_STRING
+    Boolean::class.simpleName -> DataStoreConst.USEFUL_TYPE_BOOLEAN
+    Float::class.simpleName -> DataStoreConst.USEFUL_TYPE_FLOAT
+    Long::class.simpleName -> DataStoreConst.USEFUL_TYPE_LONG
     else -> {
         throw Exception("Useful Preference generate is Not support type $this")
     }

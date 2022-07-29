@@ -30,7 +30,7 @@ internal fun Resolver.findUsefulPreferences(
         }
         .map { classDeclaration ->
             val declaredFunctions = classDeclaration.getDeclaredFunctions()
-            val disableEncrypted = classDeclaration.findDisableEncrypted()
+            val disableSecurity = classDeclaration.findDisableEncrypted()
 
             val findDeclaredFunctions = declaredFunctions
                 .filter { functionDeclaration ->
@@ -94,23 +94,10 @@ internal fun Resolver.findUsefulPreferences(
             )
 
             ResearchModel(
-                disableEncrypted = disableEncrypted,
+                disableSecurity = disableSecurity,
                 targetClassDeclaration = classDeclaration,
                 valueModels = findDeclaredFunctions,
                 mergeKeyModel = mergeMap
             )
         }
         .toList()
-
-// 순서
-// getValue -> find key, fun return type
-// setValue -> find key, fun return type
-
-// getValue key and setValue key merge -> find type
-// generate data class
-
-// generate impl DataStore<Data class>
-
-
-// getValue 찾고
-// setValue 찾아서 merge 후 data class

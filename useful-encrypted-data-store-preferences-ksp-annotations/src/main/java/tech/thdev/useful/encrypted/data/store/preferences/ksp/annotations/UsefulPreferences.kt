@@ -7,7 +7,7 @@ package tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations
  *
  * Sample code
 <pre>
-@UsefulPreferences(/* options disableEncrypted = true */)
+@UsefulPreferences(/* options disableSecurity = true */)
 interface XXXPreferences {
 
 @GetValue(KEY_INT)
@@ -63,4 +63,4 @@ private const val KEY_LONG = "key-long"
  */
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
-annotation class UsefulPreferences(@Suppress("unused") val disableEncrypted: Boolean = false)
+annotation class UsefulPreferences(@Suppress("unused") val disableSecurity: Boolean = false)

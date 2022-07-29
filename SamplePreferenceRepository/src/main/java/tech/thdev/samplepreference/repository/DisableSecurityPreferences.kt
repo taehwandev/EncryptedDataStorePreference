@@ -5,8 +5,8 @@ import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.Useful
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.getter.GetValue
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.setter.SetValue
 
-@UsefulPreferences
-interface SamplePreferences {
+@UsefulPreferences(disableSecurity = true)
+interface DisableSecurityPreferences {
 
     @GetValue(KEY_INT)
     fun getInt(): Flow<Int>
@@ -57,14 +57,3 @@ interface SamplePreferences {
         private const val KEY_LONG = "key-long"
     }
 }
-
-//class UserPreferencesImpl(
-//    private val userPreferencesStore: DataStore<Preferences>
-//) : UserPreferences {
-//
-//    override fun getUserId(): Flow<String> =
-//        userPreferencesStore.data
-//            .map {
-//                it[UserPreferencesKeys.KEY_USER_ID] ?: ""
-//            }
-//}

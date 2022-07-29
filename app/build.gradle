@@ -57,7 +57,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation(project(":SamplePreferenceRepository"))
-    implementation(project(":useful-encrypted-data-store-preferences-keystore"))
+    implementation(project(":useful-encrypted-data-store-preferences-security"))
 
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
 

@@ -45,5 +45,5 @@ dependencies {
 
     ksp(project(":useful-encrypted-data-store-preferences-ksp"))
     implementation(project(":useful-encrypted-data-store-preferences-ksp-annotations"))
-    implementation(project(":useful-encrypted-data-store-preferences-keystore"))
+    implementation(project(":useful-encrypted-data-store-preferences-security"))
 }

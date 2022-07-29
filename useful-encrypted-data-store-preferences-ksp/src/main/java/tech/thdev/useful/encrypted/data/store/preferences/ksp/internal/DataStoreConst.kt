@@ -11,7 +11,7 @@ internal object DataStoreConst {
     const val DEBUG = true
 
     val ANNOTATION_USEFUL_PREFERENCES = UsefulPreferences::class.asClassName()
-    const val ANNOTATION_DISABLE_ENCRYPTED = "disableEncrypted"
+    const val ANNOTATION_DISABLE_SECURITY = "disableSecurity"
 
     val ANNOTATION_GET_VALUE = GetValue::class.asClassName()
     val ANNOTATION_SET_VALUE = SetValue::class.asClassName()
@@ -34,4 +34,17 @@ internal object DataStoreConst {
     val FLOW = ClassName("kotlinx.coroutines.flow", "Flow")
     val FLOW_MAP = ClassName("kotlinx.coroutines.flow", "map")
     val FLOW_FIRST = ClassName("kotlinx.coroutines.flow", "first")
+
+    // security
+    const val USEFUL_SECURITY_PRIMARY_PROPERTY = "usefulSecurity"
+    val USEFUL_SECURITY = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulSecurity")
+    val USEFUL_EDIT_ENCRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "editEncrypt")
+    val FLOW_MAP_DECRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "mapDecrypt")
+    val USEFUL_TYPE = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulType")
+    const val USEFUL_TYPE_INT = "UsefulType.INT"
+    const val USEFUL_TYPE_DOUBLE = "UsefulType.DOUBLE"
+    const val USEFUL_TYPE_STRING =  "UsefulType.STRING"
+    const val USEFUL_TYPE_BOOLEAN = "UsefulType.BOOLEAN"
+    const val USEFUL_TYPE_FLOAT = "UsefulType.FLOAT"
+    const val USEFUL_TYPE_LONG = "UsefulType.LONG"
 }
