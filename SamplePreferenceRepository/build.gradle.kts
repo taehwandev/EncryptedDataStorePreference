@@ -40,12 +40,22 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Dependency.Compose.composeCompilerVersion
     }
+
+    buildTypes {
+        sourceSets.getByName("debug") {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        sourceSets.getByName("release") {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 dependencies {
     implementation(Dependency.AndroidX.datastorePreferences)
     implementation(Dependency.AndroidX.securityCrypto)
 
-    ksp(project(":useful-encrypted-data-store-preferences-ksp"))
-    implementation(project(":useful-encrypted-data-store-preferences-security"))
+    ksp(projects.usefulEncryptedDataStorePreferencesKsp)
+    implementation(projects.usefulEncryptedDataStorePreferencesKspAnnotations)
+    implementation(projects.usefulEncryptedDataStorePreferencesSecurity)
 }

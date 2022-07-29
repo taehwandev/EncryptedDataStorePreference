@@ -1,9 +1,9 @@
+@file:Suppress("UnstableApiUsage")
+
 import tech.thdev.gradle.dependencies.Dependency
 
 plugins {
     id("com.android.application")
-    id("com.google.devtools.ksp")
-
     kotlin("android")
 }
 
@@ -73,6 +73,6 @@ dependencies {
     debugImplementation(Dependency.Compose.uiTooling)
     debugImplementation(Dependency.Compose.uiTooling)
 
-    implementation(project(":SamplePreferenceRepository"))
-    implementation(project(":useful-encrypted-data-store-preferences-security"))
+    implementation(projects.samplePreferenceRepository)
+    implementation(projects.usefulEncryptedDataStorePreferencesSecurity)
 }
