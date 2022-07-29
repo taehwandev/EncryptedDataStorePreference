@@ -3,9 +3,11 @@ package tech.thdev.useful.encrypted.data.store.preferences.ksp.internal
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
+import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
+import com.google.devtools.ksp.symbol.KSName
 import com.google.devtools.ksp.symbol.Modifier
 import com.squareup.kotlinpoet.FileSpec
 import java.io.OutputStreamWriter
@@ -66,6 +68,24 @@ internal fun FileSpec.writeTo(
 
     OutputStreamWriter(outputStream, "UTF-8").use { writeTo(it) }
 }
+
+/**
+ * make sure it's accessible
+ */
+internal fun Resolver.findClassDeclaration(
+    packageName: String,
+    className: String,
+): KSClassDeclaration? =
+    getClassDeclarationByName(object : KSName {
+        override fun asString(): String =
+            "$packageName.$className"
+
+        override fun getQualifier(): String =
+            packageName
+
+        override fun getShortName(): String =
+            className
+    })
 
 /**
  * Default value

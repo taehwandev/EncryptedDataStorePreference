@@ -6,6 +6,7 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.DataStoreConst
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.filterAnnotation
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findClassDeclaration
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findDisableEncrypted
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findKeyArgument
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnElement
@@ -82,6 +83,14 @@ internal fun Resolver.findUsefulPreferences(
                     logger.writeLogger("parameter type : ${it.functionInfo.parameters.firstOrNull()?.type?.resolve()?.declaration?.simpleName?.asString()}\n")
                 }
                 .toList()
+
+            // Check enable security module
+            if (disableSecurity.not()) {
+                val findClass = this.findClassDeclaration(DataStoreConst.USEFUL_SECURITY.packageName, DataStoreConst.USEFUL_SECURITY.simpleName)
+                if (findClass == null) {
+                    logger.error("Not found Useful security. add security dependency.")
+                }
+            }
 
             // list merge
             val mergeMap = findDeclaredFunctions.associateBy(
