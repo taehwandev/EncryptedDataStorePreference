@@ -2,7 +2,7 @@
 
 Android Encrypted DataStorePreference.
 
-Include Data Encrypt in Android DataStorePreference. This module use KSP.
+Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.7.10-1.0.6).
 
 ## Usage
 
