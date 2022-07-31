@@ -4,7 +4,15 @@ Android Encrypted DataStorePreference.
 
 Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.7.10-1.0.6).
 
-## Usage
+## Download
+
+Use gradle
+
+```groovy
+ksp "tech.thdev:useful-encrypted-data-store-preferences-ksp:$lastVersion"
+implementation "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations:$lastVersion"
+implementation "tech.thdev:useful-encrypted-data-store-preferences-security:$lastVersion"
+```
 
 Use gradle.kts
 
@@ -20,7 +28,9 @@ dependencies {
 }
 ```
 
-Use Code
+Release version are available in [Sonatyp's repository.](https://search.maven.org/search?q=tech.thdev)
+
+## Use Code
 
 ```kotlin
 @UsefulPreferences
@@ -81,6 +91,8 @@ and rebuild.
 
 use Activity or application
 
+Use the provided security or implement UsefulSecurity inheritance.
+
 ```kotlin
 class SampleActivity {
     private val Context.dataStore by preferencesDataStore(name = "security-preference")
@@ -112,6 +124,27 @@ class SampleActivity {
 }
 ```
 
+## Custom Security
+
+```kotlin
+implementation("tech.thdev:useful-encrypted-data-store-preferences-security:$lastVersion")
+```
+
+Implement UsefulSecurity inheritance.
+
+```kotlin
+class CustomSecurityImpl : UsefulSecurity {
+    
+    override fun encryptData(data: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun decryptData(encryptData: String): String {
+        TODO("Not yet implemented")
+    }
+}
+```
+
 ## The KSP path must be specified as required.
 
 module gradle.
@@ -126,3 +159,7 @@ buildTypes {
     }
 }
 ```
+
+## Result
+
+![images/sample.png]

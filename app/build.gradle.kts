@@ -74,5 +74,5 @@ dependencies {
     debugImplementation(Dependency.Compose.uiTooling)
 
     implementation(projects.samplePreferenceRepository)
-    implementation(projects.usefulEncryptedDataStorePreferencesSecurity)
+    implementation(Dependency.UsefulDataStorePreference.security)
 }

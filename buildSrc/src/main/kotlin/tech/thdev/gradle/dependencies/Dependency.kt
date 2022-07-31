@@ -74,4 +74,12 @@ object Dependency {
         const val kspVersion = "1.7.10-1.0.6"
         const val processingApi = "com.google.devtools.ksp:symbol-processing-api:$kspVersion"
     }
+
+    object UsefulDataStorePreference {
+        private const val version = "1.0.0-alpha01"
+
+        const val ksp = "tech.thdev:useful-encrypted-data-store-preferences-ksp:$version"
+        const val kspAnnotation = "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations:$version"
+        const val security = "tech.thdev:useful-encrypted-data-store-preferences-security:$version"
+    }
 }
