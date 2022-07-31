@@ -161,5 +161,5 @@ buildTypes {
 ```
 
 ## Result
+<img width="130" alt="sample" src="https://user-images.githubusercontent.com/2144231/182009046-2b11d0fc-5acb-4b46-8d87-94712d958ea4.png">
 
-![./images/sample.png]
