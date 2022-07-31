@@ -162,4 +162,4 @@ buildTypes {
 
 ## Result
 
-![images/sample.png]
+![./images/sample.png]
