@@ -33,7 +33,7 @@ Release version are available in [Sonatyp's repository.](https://search.maven.or
 ## Use Code
 
 ```kotlin
-@UsefulPreferences
+@UsefulPreferences(/* option. Not use security - disableSecurity = true */)
 interface SecurityPreferences {
 
     @GetValue(KEY_INT)
