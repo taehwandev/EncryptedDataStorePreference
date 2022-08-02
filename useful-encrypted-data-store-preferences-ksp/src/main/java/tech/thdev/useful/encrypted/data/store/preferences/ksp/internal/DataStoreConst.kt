@@ -3,12 +3,13 @@ package tech.thdev.useful.encrypted.data.store.preferences.ksp.internal
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.asClassName
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.UsefulPreferences
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.getter.GetValue
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.setter.SetValue
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.ClearValues
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.SetValue
 
 internal object DataStoreConst {
 
-    const val DEBUG = false
+    const val DEBUG = true
 
     val ANNOTATION_USEFUL_PREFERENCES = UsefulPreferences::class.asClassName()
     const val ANNOTATION_DISABLE_SECURITY = "disableSecurity"
@@ -16,6 +17,8 @@ internal object DataStoreConst {
     val ANNOTATION_GET_VALUE = GetValue::class.asClassName()
     val ANNOTATION_SET_VALUE = SetValue::class.asClassName()
     const val ANNOTATION_KEY_ARGUMENT = "key"
+
+    val ANNOTATION_CLEAR_VALUES = ClearValues::class.asClassName()
 
     // data store preference
     val PREF_GENERATE_INT = ClassName("androidx.datastore.preferences.core", "intPreferencesKey")
@@ -38,13 +41,22 @@ internal object DataStoreConst {
     // security
     const val USEFUL_SECURITY_PRIMARY_PROPERTY = "usefulSecurity"
     val USEFUL_SECURITY = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulSecurity")
-    val USEFUL_EDIT_ENCRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "editEncrypt")
-    val FLOW_MAP_DECRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "mapDecrypt")
     val USEFUL_TYPE = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulType")
-    const val USEFUL_TYPE_INT = "UsefulType.INT"
-    const val USEFUL_TYPE_DOUBLE = "UsefulType.DOUBLE"
-    const val USEFUL_TYPE_STRING =  "UsefulType.STRING"
-    const val USEFUL_TYPE_BOOLEAN = "UsefulType.BOOLEAN"
-    const val USEFUL_TYPE_FLOAT = "UsefulType.FLOAT"
-    const val USEFUL_TYPE_LONG = "UsefulType.LONG"
+    val EDIT_ENCRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.extensions", "editEncrypt")
+    val FLOW_MAP_DECRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.extensions", "mapDecrypt")
+
+    /**
+     * Convert Security type
+     */
+    internal fun convertEncryptType(dataType: String): String = when (dataType) {
+        Int::class.simpleName -> "UsefulType.INT"
+        Double::class.simpleName -> "UsefulType.DOUBLE"
+        String::class.simpleName -> "UsefulType.STRING"
+        Boolean::class.simpleName -> "UsefulType.BOOLEAN"
+        Float::class.simpleName -> "UsefulType.FLOAT"
+        Long::class.simpleName -> "UsefulType.LONG"
+        else -> {
+            throw Exception("Useful Preference generate is Not support type $this")
+        }
+    }
 }

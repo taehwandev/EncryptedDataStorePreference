@@ -14,20 +14,18 @@ class EncryptedDataStorePreferencesProcessor(
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
-    private var targetList: List<ResearchModel> = emptyList()
+    private var targetList = mutableListOf<ResearchModel>()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        targetList = resolver.findUsefulPreferences(logger)
-
+        targetList.addAll(resolver.findUsefulPreferences(logger))
         return emptyList()
     }
 
     override fun finish() {
-        targetList.forEach {
-            it.generatePreferences(
-                codeGenerator = codeGenerator,
-                logger = logger,
-            )
-        }
+        targetList.generatePreferences(
+            codeGenerator = codeGenerator,
+            logger = logger,
+        )
+        targetList.clear()
     }
 }

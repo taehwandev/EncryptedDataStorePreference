@@ -2,8 +2,9 @@ package tech.thdev.samplepreference.repository
 
 import kotlinx.coroutines.flow.Flow
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.UsefulPreferences
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.getter.GetValue
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.setter.SetValue
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.ClearValues
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.SetValue
 
 @UsefulPreferences
 interface SecurityPreferences {
@@ -46,6 +47,9 @@ interface SecurityPreferences {
 
     @SetValue(KEY_LONG)
     suspend fun setLong(value: Long)
+
+    @ClearValues
+    suspend fun clearAll()
 
     companion object {
 

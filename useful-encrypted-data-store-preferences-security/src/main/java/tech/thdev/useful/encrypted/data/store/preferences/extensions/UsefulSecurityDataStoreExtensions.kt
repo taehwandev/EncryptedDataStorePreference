@@ -1,4 +1,4 @@
-package tech.thdev.useful.encrypted.data.store.preferences.security
+package tech.thdev.useful.encrypted.data.store.preferences.extensions
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import tech.thdev.useful.encrypted.data.store.preferences.security.UsefulSecurity
+import tech.thdev.useful.encrypted.data.store.preferences.security.UsefulType
 
 suspend inline fun DataStore<Preferences>.editEncrypt(
     usefulSecurity: UsefulSecurity,

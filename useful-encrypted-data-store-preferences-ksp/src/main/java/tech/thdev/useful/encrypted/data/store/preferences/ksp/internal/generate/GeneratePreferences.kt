@@ -13,14 +13,12 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.DataStoreConst
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.convertEncryptType
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generateDefaultValue
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnElement
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnResolve
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.hasFlow
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generate.function.generateClearFunction
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generate.function.generateGetFunction
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generate.function.generateSetFunction
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.mergePrefixGenerate
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.model.DataType
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.model.ResearchModel
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.model.ValueModel
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.upperKey
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.writeTo
 
@@ -29,12 +27,14 @@ internal class GeneratePreferences(
     @Suppress("unused") private val logger: KSPLogger,
 ) {
 
-    fun generate(researchModel: ResearchModel) {
-        val className = researchModel.targetClassDeclaration.simpleName.getShortName()
-        val packageName = researchModel.targetClassDeclaration.packageName.asString()
+    fun generate(researchModels: List<ResearchModel>) {
+        researchModels.forEach { item ->
+            val className = item.targetClassDeclaration.simpleName.getShortName()
+            val packageName = item.targetClassDeclaration.packageName.asString()
 
-        val keyClassName = researchModel.mergeKeyModel.generateKeysClass(researchModel.disableSecurity, className, packageName)
-        generatePreferenceImplClass(className, packageName, keyClassName, researchModel)
+            val keyClassName = item.mergeKeyModel.generateKeysClass(item.disableSecurity, className, packageName)
+            generatePreferenceImplClass(className, packageName, keyClassName, item)
+        }
     }
 
     /**
@@ -166,19 +166,23 @@ internal class GeneratePreferences(
                 )
         }
 
-        researchModel.valueModels.forEach { item ->
-            when (item) {
-                is ValueModel.Get -> {
+        // Generate functions.
+        researchModel.dataTypes.forEach { item ->
+            val funSpec = when (item) {
+                is DataType.Get -> {
                     // Generate get function
-                    val funSpec = item.generateGetFunction(researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
-                    classSpec.addFunction(funSpec.build())
+                    item.generateGetFunction(researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
                 }
-                is ValueModel.Set -> {
+                is DataType.Set -> {
                     // Generate set function
-                    val funSpec = item.generateSetFunction(researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
-                    classSpec.addFunction(funSpec.build())
+                    item.generateSetFunction(researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
+                }
+                is DataType.Clear -> {
+                    // Generate clear
+                    item.generateClearFunction(fileSpec, primaryPreferencesStore)
                 }
             }
+            classSpec.addFunction(funSpec.build())
         }
 
         fileSpec.addType(classSpec.build())
@@ -212,125 +216,9 @@ internal class GeneratePreferences(
             fileName = newClassName,
         )
     }
-
-    /**
-     * Generate set function.
-     *
-    public override suspend fun setXXX(`value`: Type): Unit {
-    preferencesStore.edit {
-    it[`SecurityPreferencesKeys.KEY_DOUBLE] = value
-    }
-    }
-     */
-    private fun ValueModel.Set.generateSetFunction(
-        disableSecurity: Boolean,
-        fileSpec: FileSpec.Builder,
-        primaryContractValue: String,
-        keyClassName: String,
-    ): FunSpec.Builder {
-        val funSpec = FunSpec.builder(functionInfo.simpleName.asString())
-            .addModifiers(KModifier.OVERRIDE, KModifier.PUBLIC)
-        if (isSuspend) {
-            funSpec.addModifiers(KModifier.SUSPEND)
-        }
-
-        val parameter = functionInfo.parameters.firstOrNull()
-        if (parameter != null && parameter.name?.asString() != null) {
-            val parameterName = parameter.name!!.asString()
-            funSpec.addParameter(parameterName, TypeVariableName(parameter.type.resolve().declaration.simpleName.asString()))
-
-            // generate body
-            if (disableSecurity) {
-                fileSpec.addImport(DataStoreConst.PREF_DATA_STORE_EDIT.packageName, DataStoreConst.PREF_DATA_STORE_EDIT.simpleName)
-                funSpec.addStatement(
-                    "$primaryContractValue.${DataStoreConst.PREF_DATA_STORE_EDIT.simpleName}" +
-                            " {\nit[$keyClassName.${key.upperKey()}] = $parameterName\n}"
-                )
-            } else {
-                fileSpec.addImport(DataStoreConst.USEFUL_EDIT_ENCRYPT.packageName, DataStoreConst.USEFUL_EDIT_ENCRYPT.simpleName)
-                funSpec.addStatement(
-                    "$primaryContractValue.${DataStoreConst.USEFUL_EDIT_ENCRYPT.simpleName}" +
-                            "(${DataStoreConst.USEFUL_SECURITY_PRIMARY_PROPERTY}, $parameterName) { preferences, encrypted ->" +
-                            " \npreferences[$keyClassName.${key.upperKey()}] = encrypted\n}"
-                )
-            }
-        }
-        return funSpec
-    }
-
-    /**
-     * Generate getFunction
-     *
-    override fun getXXX(): Flow<XXX> =
-    userPreferencesStore.data
-    .map {
-    it[`XXXKeys.KEY_XXX] ?: `defaultValue`
-    }
-     */
-    private fun ValueModel.Get.generateGetFunction(
-        disableSecurity: Boolean,
-        fileSpec: FileSpec.Builder,
-        primaryContractValue: String,
-        keyClassName: String,
-    ): FunSpec.Builder {
-        val funSpec = FunSpec.builder(functionInfo.simpleName.asString())
-            .addModifiers(KModifier.OVERRIDE, KModifier.PUBLIC)
-
-        fun String.getMap() =
-            "return $primaryContractValue.data" +
-                    "\n.map {" +
-                    "\nit[$keyClassName.${key.upperKey()}] ?: ${this.generateDefaultValue()}" +
-                    "\n}"
-
-        fun String.getMapDecrypt() =
-            "return $primaryContractValue.data" +
-                    "\n.mapDecrypt<$this>(${DataStoreConst.USEFUL_SECURITY_PRIMARY_PROPERTY}, ${this.convertEncryptType()}) {" +
-                    "\nit[$keyClassName.${key.upperKey()}]" +
-                    "\n}"
-
-        if (isSuspend) { // flow to value
-            fileSpec.addImport(DataStoreConst.FLOW_FIRST.packageName, DataStoreConst.FLOW_FIRST.simpleName)
-
-            funSpec.addModifiers(KModifier.SUSPEND)
-                .returns(TypeVariableName(valueType.getShortName()))
-
-            if (disableSecurity) {
-                fileSpec.addImport(DataStoreConst.FLOW_MAP.packageName, DataStoreConst.FLOW_MAP.simpleName)
-                funSpec.addCode("${valueType.getShortName().getMap()}\n.first()")
-            } else {
-                fileSpec.addImport(DataStoreConst.FLOW_MAP_DECRYPT.packageName, DataStoreConst.FLOW_MAP_DECRYPT.simpleName)
-                fileSpec.addImport(DataStoreConst.USEFUL_TYPE.packageName, DataStoreConst.USEFUL_TYPE.simpleName)
-                funSpec.addCode("${valueType.getShortName().getMapDecrypt()}\n.first()")
-            }
-        } else if (functionInfo.hasFlow()) { // flow return
-            // find generic type
-            functionInfo.getReturnResolve()?.typeParameters?.firstOrNull()?.let { _ ->
-                // get full name
-                if (functionInfo.getReturnResolve()?.qualifiedName != null && functionInfo.getReturnElement()?.simpleName != null) {
-                    val genericName = functionInfo.getReturnResolve()!!.qualifiedName!!
-                    val typeName = functionInfo.getReturnElement()!!.simpleName.getShortName()
-                    val genericClassName = ClassName(packageName = genericName.getQualifier(), genericName.getShortName())
-                    funSpec.returns(genericClassName.parameterizedBy(TypeVariableName(typeName)))
-
-                    if (disableSecurity) {
-                        fileSpec.addImport(DataStoreConst.FLOW_MAP.packageName, DataStoreConst.FLOW_MAP.simpleName)
-                        funSpec.addCode(typeName.getMap())
-                    } else {
-                        fileSpec.addImport(DataStoreConst.FLOW_MAP_DECRYPT.packageName, DataStoreConst.FLOW_MAP_DECRYPT.simpleName)
-                        fileSpec.addImport(DataStoreConst.USEFUL_TYPE.packageName, DataStoreConst.USEFUL_TYPE.simpleName)
-                        funSpec.addCode(typeName.getMapDecrypt())
-                    }
-                }
-            }
-        } else {
-            throw Exception("Not support type")
-        }
-
-        return funSpec
-    }
 }
 
-internal fun ResearchModel.generatePreferences(
+internal fun List<ResearchModel>.generatePreferences(
     codeGenerator: CodeGenerator,
     logger: KSPLogger,
 ) =

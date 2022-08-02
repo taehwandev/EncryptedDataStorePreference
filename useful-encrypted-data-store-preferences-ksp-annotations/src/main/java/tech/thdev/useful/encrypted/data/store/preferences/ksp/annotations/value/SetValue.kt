@@ -1,4 +1,4 @@
-package tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.setter
+package tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FUNCTION)

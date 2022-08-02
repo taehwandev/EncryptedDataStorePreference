@@ -175,6 +175,14 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
+                        TestButton(
+                            text = "Clear value",
+                            onClick = {
+                                securityPreference.clearAll()
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
                     }
                 }
             }
