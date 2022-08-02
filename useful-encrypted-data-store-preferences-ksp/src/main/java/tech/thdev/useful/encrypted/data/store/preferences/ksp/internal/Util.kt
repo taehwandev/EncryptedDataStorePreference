@@ -86,33 +86,3 @@ internal fun Resolver.findClassDeclaration(
         override fun getShortName(): String =
             className
     })
-
-/**
- * Default value
- */
-internal fun String.generateDefaultValue(): String = when (this) {
-    Int::class.simpleName -> "0"
-    Double::class.simpleName -> "0.0"
-    String::class.simpleName -> "\"\""
-    Boolean::class.simpleName -> "false"
-    Float::class.simpleName -> "0.0f"
-    Long::class.simpleName -> "0L"
-    else -> {
-        throw Exception("Useful Preference generate is Not support type $this")
-    }
-}
-
-/**
- * Default value
- */
-internal fun String.convertEncryptType(): String = when (this) {
-    Int::class.simpleName -> DataStoreConst.USEFUL_TYPE_INT
-    Double::class.simpleName -> DataStoreConst.USEFUL_TYPE_DOUBLE
-    String::class.simpleName -> DataStoreConst.USEFUL_TYPE_STRING
-    Boolean::class.simpleName -> DataStoreConst.USEFUL_TYPE_BOOLEAN
-    Float::class.simpleName -> DataStoreConst.USEFUL_TYPE_FLOAT
-    Long::class.simpleName -> DataStoreConst.USEFUL_TYPE_LONG
-    else -> {
-        throw Exception("Useful Preference generate is Not support type $this")
-    }
-}

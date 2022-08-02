@@ -55,7 +55,13 @@ dependencies {
     implementation(Dependency.AndroidX.datastorePreferences)
     implementation(Dependency.AndroidX.securityCrypto)
 
-    ksp(Dependency.UsefulDataStorePreference.ksp)
-    implementation(Dependency.UsefulDataStorePreference.kspAnnotation)
-    implementation(Dependency.UsefulDataStorePreference.security)
+    // use - current release version
+//    ksp(Dependency.UsefulDataStorePreference.ksp)
+//    implementation(Dependency.UsefulDataStorePreference.kspAnnotation)
+//    implementation(Dependency.UsefulDataStorePreference.security)
+
+    // use - local
+    ksp(projects.usefulEncryptedDataStorePreferencesKsp)
+    implementation(projects.usefulEncryptedDataStorePreferencesKspAnnotations)
+    implementation(projects.usefulEncryptedDataStorePreferencesSecurity)
 }

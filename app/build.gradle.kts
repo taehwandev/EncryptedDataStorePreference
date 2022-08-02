@@ -74,5 +74,9 @@ dependencies {
     debugImplementation(Dependency.Compose.uiTooling)
 
     implementation(projects.samplePreferenceRepository)
-    implementation(Dependency.UsefulDataStorePreference.security)
+    // use - current release version
+//    implementation(Dependency.UsefulDataStorePreference.security)
+
+    // use - local
+    implementation(projects.usefulEncryptedDataStorePreferencesSecurity)
 }
