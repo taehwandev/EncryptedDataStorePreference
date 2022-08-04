@@ -36,9 +36,7 @@ internal fun Resolver.findUsefulPreferences(
             val findDeclaredFunctions = declaredFunctions
                 .filter { functionDeclaration ->
                     functionDeclaration.filterAnnotation {
-                        it == DataStoreConst.ANNOTATION_GET_VALUE.simpleName
-                                || it == DataStoreConst.ANNOTATION_SET_VALUE.simpleName
-                                || it == DataStoreConst.ANNOTATION_CLEAR_VALUES.simpleName
+                        DataStoreConst.PREDEFINED_ANNOTATIONS.contains(it)
                     }
                 }
                 .mapNotNull { functionDeclaration ->

@@ -1,6 +1,7 @@
 package tech.thdev.useful.encrypted.data.store.preferences.security
 
 import android.util.Base64
+import androidx.annotation.VisibleForTesting
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import tech.thdev.useful.encrypted.data.store.preferences.security.util.aesGenerateKey
@@ -39,7 +40,8 @@ internal class UsefulSecurityImpl : UsefulSecurity {
 
     companion object {
         private const val CIPHER_OPTION = "AES/CBC/PKCS5PADDING"
-        private const val DELIMITER = "|"
+        @VisibleForTesting
+        internal const val DELIMITER = "|"
     }
 }
 

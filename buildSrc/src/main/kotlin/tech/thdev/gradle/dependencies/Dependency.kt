@@ -73,6 +73,11 @@ object Dependency {
         // https://github.com/google/ksp
         const val kspVersion = "1.7.10-1.0.6"
         const val processingApi = "com.google.devtools.ksp:symbol-processing-api:$kspVersion"
+
+        // https://github.com/tschuchortdev/kotlin-compile-testing
+        private const val kotlinCompileTestVersion = "1.4.9"
+        const val kspCompileTesting = "com.github.tschuchortdev:kotlin-compile-testing:$kotlinCompileTestVersion"
+        const val kspCompileTestingKsp = "com.github.tschuchortdev:kotlin-compile-testing-ksp:$kotlinCompileTestVersion"
     }
 
     object UsefulDataStorePreference {
@@ -81,5 +86,29 @@ object Dependency {
         const val ksp = "tech.thdev:useful-encrypted-data-store-preferences-ksp:$version"
         const val kspAnnotation = "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations:$version"
         const val security = "tech.thdev:useful-encrypted-data-store-preferences-security:$version"
+    }
+
+    object AndroidTest {
+        // https://developer.android.com/jetpack/androidx/releases/test
+        const val androidxCore = "androidx.test:core:1.5.0-alpha01"
+        const val androidxRunner = "androidx.test:runner:1.5.0-alpha04"
+        const val androidxJunit = "androidx.test.ext:junit:1.1.4-alpha07"
+
+        // https://github.com/mockito/mockito-kotlin
+        const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:4.0.0"
+
+        // https://github.com/mannodermaus/android-junit5
+        private const val junit5Version = "5.8.2"
+
+        // (Required) Writing and executing Unit Tests on the JUnit Platform
+        const val junit5 = "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+        const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+
+        // jUnit4 호환 모듈
+        const val junit5Vintage = "org.junit.vintage:junit-vintage-engine:$junit5Version"
+
+        // https://github.com/robolectric/robolectric
+        private const val robolectricVersion = "4.8.1"
+        const val robolectric = "org.robolectric:robolectric:$robolectricVersion"
     }
 }
