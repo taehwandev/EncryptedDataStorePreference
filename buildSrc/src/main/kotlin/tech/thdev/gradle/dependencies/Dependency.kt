@@ -81,7 +81,7 @@ object Dependency {
     }
 
     object UsefulDataStorePreference {
-        private const val version = "1.0.0-alpha01"
+        private const val version = "1.0.0-alpha03"
 
         const val ksp = "tech.thdev:useful-encrypted-data-store-preferences-ksp:$version"
         const val kspAnnotation = "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations:$version"
