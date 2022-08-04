@@ -10,7 +10,7 @@ import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.
 
 internal object DataStoreConst {
 
-    const val DEBUG = true
+    const val DEBUG = false
 
     val ANNOTATION_USEFUL_PREFERENCES = UsefulPreferences::class.asClassName()
     const val ANNOTATION_DISABLE_SECURITY = "disableSecurity"

@@ -1,6 +1,5 @@
 package tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generate.function
 
-import com.google.devtools.ksp.processing.KSPLogger
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
@@ -25,7 +24,6 @@ it[`XXXKeys.KEY_XXX] ?: `defaultValue`
 }
  */
 internal fun DataType.Get.generateGetFunction(
-    logger: KSPLogger,
     disableSecurity: Boolean,
     fileSpec: FileSpec.Builder,
     primaryContractValue: String,
@@ -59,7 +57,7 @@ internal fun DataType.Get.generateGetFunction(
             fileSpec.addImport(DataStoreConst.FLOW_MAP_DECRYPT.packageName, DataStoreConst.FLOW_MAP_DECRYPT.simpleName)
             funSpec.addCode("${valueType.getShortName().getMapDecrypt()}\n.first()")
         }
-    } else if (functionInfo.hasFlow(logger)) { // flow return
+    } else if (functionInfo.hasFlow()) { // flow return
         // find generic type
         functionInfo.getReturnResolve()?.typeParameters?.firstOrNull()?.let { _ ->
             // get full name

@@ -75,6 +75,9 @@ interface SecurityPreferences {
     @SetValue(KEY_LONG)
     suspend fun setLong(value: Long)
 
+    @ClearValues
+    suspend fun clearAll()
+
     companion object {
 
         private const val KEY_INT = "key-int"
