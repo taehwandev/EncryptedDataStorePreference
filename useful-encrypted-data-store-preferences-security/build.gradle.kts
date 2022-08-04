@@ -1,4 +1,5 @@
 import tech.thdev.gradle.dependencies.Dependency
+import tech.thdev.gradle.dependencies.Publish
 
 plugins {
     id("com.android.library")
@@ -7,9 +8,9 @@ plugins {
 }
 
 ext["libraryName"] = "useful-encrypted-data-store-preferences-security"
-ext["libraryVersion"] = "1.0.0-alpha01"
-ext["description"] = "Android Encrypted DataStorePreferences"
-ext["url"] = "https://thdev.tech/EncryptedDataStorePreference/"
+ext["libraryVersion"] = Publish.libraryVersion
+ext["description"] = Publish.description
+ext["url"] = Publish.publishUrl
 
 android {
     namespace = "tech.thdev.useful.encrypted.data.store.preferences.security"
@@ -40,10 +41,30 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
     implementation(Dependency.Coroutines.core)
     implementation(Dependency.AndroidX.datastorePreferencesCore)
     implementation(Dependency.AndroidX.securityCrypto)
+
+    Dependency.AndroidTest.run {
+        testImplementation(androidxCore)
+        testImplementation(androidxRunner)
+        testImplementation(androidxJunit)
+        testImplementation(robolectric)
+        testImplementation(mockitoKotlin)
+        testImplementation(junit5)
+        testImplementation(junit5Engine)
+        testRuntimeOnly(junit5Vintage)
+    }
+    testImplementation(Dependency.Coroutines.test)
+    testImplementation(Dependency.Coroutines.turbine)
+    testImplementation(Dependency.AndroidX.datastorePreferences)
 }

@@ -2,6 +2,7 @@ package tech.thdev.useful.encrypted.data.store.preferences.ksp.internal
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.asClassName
+import kotlinx.coroutines.flow.Flow
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.UsefulPreferences
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.ClearValues
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
@@ -20,6 +21,10 @@ internal object DataStoreConst {
 
     val ANNOTATION_CLEAR_VALUES = ClearValues::class.asClassName()
 
+    val PREDEFINED_ANNOTATIONS = arrayOf(
+        ANNOTATION_GET_VALUE.simpleName, ANNOTATION_SET_VALUE.simpleName, ANNOTATION_CLEAR_VALUES.simpleName,
+    )
+
     // data store preference
     val PREF_GENERATE_INT = ClassName("androidx.datastore.preferences.core", "intPreferencesKey")
     val PREF_GENERATE_DOUBLE = ClassName("androidx.datastore.preferences.core", "doublePreferencesKey")
@@ -34,29 +39,13 @@ internal object DataStoreConst {
     const val PREF_IMPL_PRIMARY_PROPERTY = "preferencesStore"
 
     // Coroutine
-    val FLOW = ClassName("kotlinx.coroutines.flow", "Flow")
+    val FLOW = Flow::class.asClassName()
     val FLOW_MAP = ClassName("kotlinx.coroutines.flow", "map")
     val FLOW_FIRST = ClassName("kotlinx.coroutines.flow", "first")
 
     // security
     const val USEFUL_SECURITY_PRIMARY_PROPERTY = "usefulSecurity"
     val USEFUL_SECURITY = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulSecurity")
-    val USEFUL_TYPE = ClassName("tech.thdev.useful.encrypted.data.store.preferences.security", "UsefulType")
     val EDIT_ENCRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.extensions", "editEncrypt")
     val FLOW_MAP_DECRYPT = ClassName("tech.thdev.useful.encrypted.data.store.preferences.extensions", "mapDecrypt")
-
-    /**
-     * Convert Security type
-     */
-    internal fun convertEncryptType(dataType: String): String = when (dataType) {
-        Int::class.simpleName -> "UsefulType.INT"
-        Double::class.simpleName -> "UsefulType.DOUBLE"
-        String::class.simpleName -> "UsefulType.STRING"
-        Boolean::class.simpleName -> "UsefulType.BOOLEAN"
-        Float::class.simpleName -> "UsefulType.FLOAT"
-        Long::class.simpleName -> "UsefulType.LONG"
-        else -> {
-            throw Exception("Useful Preference generate is Not support type $this")
-        }
-    }
 }

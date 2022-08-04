@@ -171,7 +171,7 @@ internal class GeneratePreferences(
             val funSpec = when (item) {
                 is DataType.Get -> {
                     // Generate get function
-                    item.generateGetFunction(researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
+                    item.generateGetFunction(logger, researchModel.disableSecurity, fileSpec, primaryPreferencesStore, keyClassName.simpleName)
                 }
                 is DataType.Set -> {
                     // Generate set function

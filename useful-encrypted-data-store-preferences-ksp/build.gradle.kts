@@ -1,4 +1,5 @@
 import tech.thdev.gradle.dependencies.Dependency
+import tech.thdev.gradle.dependencies.Publish
 
 plugins {
     kotlin("jvm")
@@ -6,18 +7,33 @@ plugins {
 }
 
 ext["libraryName"] = "useful-encrypted-data-store-preferences-ksp"
-ext["libraryVersion"] = "1.0.0-alpha01"
-ext["description"] = "Android Encrypted DataStorePreferences"
-ext["url"] = "https://thdev.tech/EncryptedDataStorePreference/"
+ext["libraryVersion"] = Publish.libraryVersion
+ext["description"] = Publish.description
+ext["url"] = Publish.publishUrl
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+tasks.withType<Test>() {
+    useJUnitPlatform()
+}
+
 dependencies {
+    implementation(Dependency.Coroutines.core)
     implementation(Dependency.Ksp.processingApi)
     implementation(Dependency.Ksp.kotlinPoet)
 
-    implementation(project(":useful-encrypted-data-store-preferences-ksp-annotations"))
+    implementation(projects.usefulEncryptedDataStorePreferencesKspAnnotations)
+
+
+    Dependency.Ksp.run {
+        testImplementation(kspCompileTesting)
+        testImplementation(kspCompileTestingKsp)
+    }
+    Dependency.AndroidTest.run {
+        testImplementation(junit5)
+        testImplementation(junit5Engine)
+    }
 }

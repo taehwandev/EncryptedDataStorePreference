@@ -4,12 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import kotlin.reflect.KClass
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import tech.thdev.useful.encrypted.data.store.preferences.security.UsefulSecurity
-import tech.thdev.useful.encrypted.data.store.preferences.security.UsefulType
 
 suspend inline fun DataStore<Preferences>.editEncrypt(
     usefulSecurity: UsefulSecurity,
@@ -23,22 +22,22 @@ suspend inline fun DataStore<Preferences>.editEncrypt(
 
 inline fun <T : Any> Flow<Preferences>.mapDecrypt(
     usefulSecurity: UsefulSecurity,
-    usefulType: UsefulType,
+    type: KClass<*>,
     crossinline body: (preferences: Preferences) -> String?
 ): Flow<T> =
     map { preferences ->
         usefulSecurity.decryptData(body(preferences) ?: "")
     }
         .distinctUntilChanged()
-        .filter { it.isNotEmpty() }
         .map {
             @Suppress("UNCHECKED_CAST")
-            when (usefulType) {
-                UsefulType.INT -> it.toInt()
-                UsefulType.DOUBLE -> it.toDouble()
-                UsefulType.STRING -> it
-                UsefulType.BOOLEAN -> it.toBoolean()
-                UsefulType.FLOAT -> it.toFloat()
-                UsefulType.LONG -> it.toLong()
+            when (type) {
+                Int::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toInt()
+                Double::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toDouble()
+                String::class -> it.takeIf { it.isNotEmpty() } ?: ""
+                Boolean::class -> (it.takeIf { it.isNotEmpty() } ?: "false").toBoolean()
+                Float::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toFloat()
+                Long::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toLong()
+                else -> throw IllegalArgumentException("${type.simpleName} is not support type.")
             } as T
         }
