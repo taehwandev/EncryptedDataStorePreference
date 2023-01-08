@@ -5,6 +5,8 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.DataStoreConst
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generate.generatePreferences
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.model.ResearchModel
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.visitor.findUsefulPreferences

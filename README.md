@@ -2,11 +2,13 @@
 
 Android Encrypted DataStorePreference.
 
-Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.7.10-1.0.6).
+Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.7.21-1.0.8).
 
 ## Download
 
 Use gradle
+
+lastVersion 1.7.21-1.0.8-1.0.0
 
 ```groovy
 ksp "tech.thdev:useful-encrypted-data-store-preferences-ksp:$lastVersion"

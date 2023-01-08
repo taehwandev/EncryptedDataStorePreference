@@ -1,4 +1,5 @@
-import tech.thdev.gradle.dependencies.Dependency
+@file:Suppress("UnstableApiUsage")
+
 import tech.thdev.gradle.dependencies.Publish
 
 plugins {
@@ -15,13 +16,12 @@ ext["url"] = Publish.publishUrl
 android {
     namespace = "tech.thdev.useful.encrypted.data.store.preferences.security"
 
-    compileSdk = Dependency.Base.compileVersion
-    buildToolsVersion = Dependency.Base.buildToolsVersion
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = Dependency.Base.minSdk
-        targetSdk = Dependency.Base.targetSdk
-        vectorDrawables.useSupportLibrary = true
+        minSdk =  libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,21 +50,21 @@ android {
 }
 
 dependencies {
-    implementation(Dependency.Coroutines.core)
-    implementation(Dependency.AndroidX.datastorePreferencesCore)
-    implementation(Dependency.AndroidX.securityCrypto)
+    implementation(libs.coroutines.core)
+    implementation(libs.androidx.dataStorePreferencesCore)
+    implementation(libs.androidx.securityCrypto)
 
-    Dependency.AndroidTest.run {
-        testImplementation(androidxCore)
-        testImplementation(androidxRunner)
-        testImplementation(androidxJunit)
+    libs.test.run {
+        testImplementation(androidx.core)
+        testImplementation(androidx.runner)
+        testImplementation(androidx.junit)
         testImplementation(robolectric)
-        testImplementation(mockitoKotlin)
+        testImplementation(mockito.kotlin)
         testImplementation(junit5)
-        testImplementation(junit5Engine)
-        testRuntimeOnly(junit5Vintage)
+        testImplementation(junit5.engine)
+        testRuntimeOnly(junit5.vintage)
+        testImplementation(coroutines)
+        testImplementation(coroutines.turbine)
     }
-    testImplementation(Dependency.Coroutines.test)
-    testImplementation(Dependency.Coroutines.turbine)
-    testImplementation(Dependency.AndroidX.datastorePreferences)
+    testImplementation(libs.androidx.dataStorePreferences)
 }
