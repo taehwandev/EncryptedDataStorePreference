@@ -1,4 +1,4 @@
-import tech.thdev.gradle.dependencies.Dependency
+@file:Suppress("UnstableApiUsage")
 
 plugins {
     id("com.android.library")
@@ -10,15 +10,18 @@ plugins {
 android {
     namespace = "tech.thdev.samplepreference.repository"
 
-    compileSdk = Dependency.Base.compileVersion
-    buildToolsVersion = Dependency.Base.buildToolsVersion
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = Dependency.Base.minSdk
-        targetSdk = Dependency.Base.targetSdk
-        vectorDrawables.useSupportLibrary = true
+        minSdk =  libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -38,7 +41,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependency.Compose.composeCompilerVersion
+        kotlinCompilerExtensionVersion = libs.versions.compose.compilerVersion.get()
     }
 
     buildTypes {
@@ -52,13 +55,13 @@ android {
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.datastorePreferences)
-    implementation(Dependency.AndroidX.securityCrypto)
+    implementation(libs.androidx.dataStorePreferences)
+    implementation(libs.androidx.securityCrypto)
 
     // use - current release version
-//    ksp(Dependency.UsefulDataStorePreference.ksp)
-//    implementation(Dependency.UsefulDataStorePreference.kspAnnotation)
-//    implementation(Dependency.UsefulDataStorePreference.security)
+//    ksp(libs.usefulDataStorePreference.ksp)
+//    implementation(libs.usefulDataStorePreference.ksp.annotation)
+//    implementation(libs.usefulDataStorePreference.security)
 
     // use - local
     ksp(projects.usefulEncryptedDataStorePreferencesKsp)

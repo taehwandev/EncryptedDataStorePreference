@@ -1,4 +1,3 @@
-import tech.thdev.gradle.dependencies.Dependency
 import tech.thdev.gradle.dependencies.Publish
 
 plugins {
@@ -21,19 +20,16 @@ tasks.withType<Test>() {
 }
 
 dependencies {
-    implementation(Dependency.Coroutines.core)
-    implementation(Dependency.Ksp.processingApi)
-    implementation(Dependency.Ksp.kotlinPoet)
+    implementation(libs.coroutines.core)
+    implementation(libs.ksp)
+    implementation(libs.ksp.kotlinPoet)
 
     implementation(projects.usefulEncryptedDataStorePreferencesKspAnnotations)
 
-
-    Dependency.Ksp.run {
-        testImplementation(kspCompileTesting)
-        testImplementation(kspCompileTestingKsp)
-    }
-    Dependency.AndroidTest.run {
+    libs.test.run {
+        testImplementation(kotlinCompilTesting)
+        testImplementation(kotlinCompilTestingKSP)
         testImplementation(junit5)
-        testImplementation(junit5Engine)
+        testImplementation(junit5.engine)
     }
 }

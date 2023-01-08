@@ -1,0 +1,156 @@
+[versions]
+buildToolsVersion = "33.0.0"
+compileSdk = "33"
+targetSdk = "33"
+minSdk = "23"
+
+major = "1"
+minor = "0"
+hotfix = "0"
+versionCode = "1"
+
+## Android gradle plugin
+androidGradlePlugin = "7.3.1"
+
+## UsefulDataStorePreference
+usefulDataStorePreference = "1.0.0-alpha03"
+
+## kotlin
+# https://github.com/JetBrains/kotlin
+kotlin = "1.7.21"
+
+## Coroutine
+# https://github.com/Kotlin/kotlinx.coroutines
+coroutines = "1.6.4"
+# https://github.com/cashapp/turbine
+coroutines-turbine = "0.12.1"
+
+## KSP
+# https://github.com/google/ksp
+ksp = "1.7.21-1.0.8"
+# https://github.com/square/kotlinpoet
+kotlinPoet = "1.12.0"
+# https://github.com/tschuchortdev/kotlin-compile-testing
+kspTestVersion = "1.4.9"
+
+## AndroidX
+# https://developer.android.com/jetpack/androidx/releases/annotation
+androidx-annotation = "1.5.0"
+# https://developer.android.com/jetpack/androidx/releases/core
+androidx-coreKtx = "1.9.0"
+# https://developer.android.com/jetpack/androidx/releases/appcompat
+androidx-appCompat = "1.7.0-alpha01"
+# https://developer.android.com/jetpack/androidx/releases/activity
+androidx-activity = "1.7.0-alpha02"
+# https://developer.android.com/jetpack/androidx/releases/fragment
+androidx-fragment = "1.6.0-alpha03"
+# https://developer.android.com/jetpack/androidx/releases/vectordrawable
+androidx-vectorDrawable = "1.2.0-beta01"
+# https://developer.android.com/jetpack/androidx/releases/lifecycle
+androidx-lifecycleVersion = "2.6.0-alpha03"
+# https://developer.android.com/jetpack/androidx/releases/security
+androidx-securityCrypto = "1.1.0-alpha04"
+# https://developer.android.com/jetpack/androidx/releases/datastore
+androidx-dataStorePreferences = "1.0.0"
+
+## Compose
+# https://developer.android.com/jetpack/androidx/releases/compose
+compose = "1.4.0-alpha03"
+# https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+compose-compilerVersion = "1.4.0-alpha02"
+# https://developer.android.com/jetpack/androidx/releases/compose-material3
+compose-material3 = "1.1.0-alpha03"
+
+## Test
+# https://developer.android.com/jetpack/androidx/releases/test
+test-androidx-core = "1.5.0"
+test-androidx-runner = "1.5.0"
+test-androidx-junit = "1.1.4"
+# https://github.com/robolectric/robolectric
+test-robolectric = "4.9"
+# https://github.com/mockito/mockito
+test-mockito = "4.9.0"
+# https://github.com/mockito/mockito-kotlin
+test-mockito-kotlin = "4.1.0"
+# https://github.com/mannodermaus/android-junit5
+test-junit5 = "5.8.2"
+
+[libraries]
+## usefulDataStorePreference
+usefulDataStorePreference-ksp = { module = "tech.thdev:useful-encrypted-data-store-preferences-ksp", version.ref = "usefulDataStorePreference"}
+usefulDataStorePreference-ksp-annotations = { module = "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations", version.ref = "usefulDataStorePreference"}
+usefulDataStorePreference-security = { module = "tech.thdev:useful-encrypted-data-store-preferences-security", version.ref = "usefulDataStorePreference"}
+
+## Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-reflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
+## Coroutines
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+## KSP
+ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+ksp-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+
+## AndroidX
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidx-coreKtx" }
+androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycleVersion" }
+androidx-vectorDrawable = { module = "androidx.vectordrawable:vectordrawable", version.ref = "androidx-vectorDrawable" }
+androidx-securityCrypto = { module = "androidx.security:security-crypto", version.ref = "androidx-securityCrypto" }
+androidx-dataStorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-dataStorePreferences" }
+androidx-dataStorePreferencesCore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "androidx-dataStorePreferences" }
+
+## Compose
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+
+## Test
+test-androidx-core = { module = "androidx.test:core", version.ref = "test-androidx-core" }
+test-androidx-runner = { module = "androidx.test:runner", version.ref = "test-androidx-runner" }
+test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "test-androidx-junit" }
+
+## Robolectric
+test-robolectric = { module = "org.robolectric:robolectric", version.ref = "test-robolectric" }
+test-robolectric-shadowapi = { module = "org.robolectric:shadowapi", version.ref = "test-robolectric" }
+
+## Test coroutine
+test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+test-coroutines-turbine = { module = "app.cash.turbine:turbine", version.ref = "coroutines-turbine" }
+
+## Test KSP
+test-kotlinCompilTesting = { module = "com.github.tschuchortdev:kotlin-compile-testing", version.ref = "kspTestVersion" }
+test-kotlinCompilTestingKSP = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version.ref = "kspTestVersion" }
+
+## Test mockito
+test-mockito = { module = "org.mockito:mockito-core", version.ref = "test-mockito" }
+test-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "test-mockito" }
+test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "test-mockito-kotlin" }
+
+## Test junit 5
+test-junit5 = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "test-junit5" }
+test-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "test-junit5" }
+test-junit5-vintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "test-junit5" }
+test-junit5-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "test-junit5" }
+
+# plugin
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+plugin-androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+
+[plugins]
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+androidApp = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import tech.thdev.gradle.dependencies.Dependency
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -10,15 +8,20 @@ plugins {
 android {
     namespace = "tech.thdev.encrypteddatastorepreference"
 
-    compileSdk = Dependency.Base.compileVersion
-    buildToolsVersion = Dependency.Base.buildToolsVersion
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = Dependency.Base.minSdk
-        targetSdk = Dependency.Base.targetSdk
-        vectorDrawables.useSupportLibrary = true
+        minSdk =  libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = "${libs.versions.major.get()}.${libs.versions.minor.get()}.${libs.versions.hotfix.get()}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -47,7 +50,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependency.Compose.composeCompilerVersion
+        kotlinCompilerExtensionVersion = libs.versions.compose.compilerVersion.get()
     }
 
     packagingOptions {
@@ -61,21 +64,19 @@ android {
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.coreKtx)
-    implementation(Dependency.AndroidX.lifecycleRuntimeKtx)
-    implementation(Dependency.AndroidX.datastorePreferences)
-    implementation(Dependency.AndroidX.securityCrypto)
-    implementation(Dependency.Compose.activity)
-    implementation(Dependency.Compose.ui)
-    implementation(Dependency.Compose.uiToolingPreview)
-    implementation(Dependency.Compose.material)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.lifecycleCommonJava8)
+    implementation(libs.androidx.dataStorePreferences)
+    implementation(libs.androidx.securityCrypto)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.uiToolingPreview)
+    implementation(libs.compose.material)
 
-    debugImplementation(Dependency.Compose.uiTooling)
-    debugImplementation(Dependency.Compose.uiTooling)
+    debugImplementation(libs.compose.uiTooling)
+    debugImplementation(libs.compose.ui)
 
     implementation(projects.samplePreferenceRepository)
-    // use - current release version
-//    implementation(Dependency.UsefulDataStorePreference.security)
 
     // use - local
     implementation(projects.usefulEncryptedDataStorePreferencesSecurity)

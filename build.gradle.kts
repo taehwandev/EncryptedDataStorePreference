@@ -5,9 +5,9 @@ buildscript {
     }
 
     dependencies {
-        classpath(tech.thdev.gradle.dependencies.Gradle.android)
-        classpath(tech.thdev.gradle.dependencies.Gradle.kotlin)
-        classpath(tech.thdev.gradle.dependencies.Gradle.ksp)
+        classpath(libs.plugin.androidGradlePlugin)
+        classpath(libs.plugin.kotlin)
+        classpath(libs.plugin.ksp)
     }
 }
 
@@ -17,8 +17,8 @@ allprojects {
 
         kotlinOptions.allWarningsAsErrors = false
 
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.Experimental"
+        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.Experimental"
     }
 }
 
