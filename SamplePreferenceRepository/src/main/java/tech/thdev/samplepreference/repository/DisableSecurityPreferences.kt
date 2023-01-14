@@ -9,16 +9,16 @@ import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.
 @UsefulPreferences(disableSecurity = true)
 interface DisableSecurityPreferences {
 
-    @GetValue(KEY_INT)
+    @GetValue(KEY_INT, "100")
     fun getInt(): Flow<Int>
 
-    @GetValue(KEY_INT)
+    @GetValue(KEY_INT, "100")
     suspend fun getIntValue(): Int
 
     @SetValue(KEY_INT)
     suspend fun setInt(value: Int)
 
-    @GetValue(KEY_DOUBLE)
+    @GetValue(KEY_DOUBLE, "0.14")
     fun getDouble(): Flow<Double>
 
     @SetValue(KEY_DOUBLE)
@@ -30,7 +30,7 @@ interface DisableSecurityPreferences {
     @SetValue(KEY_STRING)
     suspend fun setString(value: String)
 
-    @GetValue(KEY_BOOLEAN)
+    @GetValue(KEY_BOOLEAN, "true")
     fun getBoolean(): Flow<Boolean>
 
     @SetValue(KEY_BOOLEAN)

@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package tech.thdev.useful.encrypted.data.store.preferences.extensions
 
 import androidx.datastore.core.DataStore
@@ -23,6 +25,7 @@ suspend inline fun DataStore<Preferences>.editEncrypt(
 inline fun <T : Any> Flow<Preferences>.mapDecrypt(
     usefulSecurity: UsefulSecurity,
     type: KClass<*>,
+    defaultValue: String,
     crossinline body: (preferences: Preferences) -> String?
 ): Flow<T> =
     map { preferences ->
@@ -32,12 +35,12 @@ inline fun <T : Any> Flow<Preferences>.mapDecrypt(
         .map {
             @Suppress("UNCHECKED_CAST")
             when (type) {
-                Int::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toInt()
-                Double::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toDouble()
-                String::class -> it.takeIf { it.isNotEmpty() } ?: ""
-                Boolean::class -> (it.takeIf { it.isNotEmpty() } ?: "false").toBoolean()
-                Float::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toFloat()
-                Long::class -> (it.takeIf { it.isNotEmpty() } ?: "0").toLong()
+                Int::class -> (it.takeIf { it.isNotEmpty() } ?: defaultValue).toInt()
+                Double::class -> (it.takeIf { it.isNotEmpty() } ?: defaultValue).toDouble()
+                String::class -> it.takeIf { it.isNotEmpty() } ?: defaultValue
+                Boolean::class -> (it.takeIf { it.isNotEmpty() } ?: defaultValue).toBoolean()
+                Float::class -> (it.takeIf { it.isNotEmpty() } ?: defaultValue).toFloat()
+                Long::class -> (it.takeIf { it.isNotEmpty() } ?: defaultValue).toLong()
                 else -> throw IllegalArgumentException("${type.simpleName} is not support type.")
             } as T
         }

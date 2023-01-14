@@ -6,9 +6,9 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.DataStoreConst
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.filterAnnotation
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findArgument
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findClassDeclaration
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findDisableEncrypted
-import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.findKeyArgument
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnElement
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnResolve
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.hasSuspend
@@ -46,9 +46,10 @@ internal fun Resolver.findUsefulPreferences(
                             // If there is no information, a non generic type is searched through resolve().
                             (functionDeclaration.getReturnElement()?.simpleName
                                 ?: functionDeclaration.getReturnResolve()?.simpleName)?.let { returnType ->
-                                functionDeclaration.findKeyArgument()?.let { key ->
+                                functionDeclaration.findArgument(DataStoreConst.ANNOTATION_KEY_ARGUMENT)?.let { key ->
                                     DataType.Get(
                                         key = key,
+                                        defaultValue = functionDeclaration.findArgument(DataStoreConst.ANNOTATION_DEFAULT_ARGUMENT) ?: "",
                                         functionInfo = functionDeclaration,
                                         valueType = returnType,
                                         isSuspend = functionDeclaration.modifiers.hasSuspend(),
@@ -58,7 +59,7 @@ internal fun Resolver.findUsefulPreferences(
                         }
                         DataStoreConst.ANNOTATION_SET_VALUE.simpleName -> {
                             functionDeclaration.parameters.firstOrNull()?.type?.resolve()?.declaration?.qualifiedName?.let { parameters ->
-                                functionDeclaration.findKeyArgument()?.let { key ->
+                                functionDeclaration.findArgument(DataStoreConst.ANNOTATION_KEY_ARGUMENT)?.let { key ->
                                     DataType.Set(
                                         key = key,
                                         functionInfo = functionDeclaration,

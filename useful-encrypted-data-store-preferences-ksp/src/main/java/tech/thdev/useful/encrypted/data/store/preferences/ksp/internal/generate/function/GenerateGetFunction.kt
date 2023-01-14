@@ -8,6 +8,7 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeVariableName
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.DataStoreConst
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generateDefaultValue
+import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.generateDefaultValueStringType
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnElement
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.getReturnResolve
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.internal.hasFlow
@@ -35,12 +36,16 @@ internal fun DataType.Get.generateGetFunction(
     fun String.getMap() =
         "return $primaryContractValue.data" +
                 "\n.map {" +
-                "\nit[$keyClassName.${key.upperKey()}] ?: ${this.generateDefaultValue()}" +
+                "\nit[$keyClassName.${key.upperKey()}] ?: ${this.generateDefaultValue(defaultValue)}" +
                 "\n}"
 
     fun String.getMapDecrypt() =
         "return $primaryContractValue.data" +
-                "\n.mapDecrypt<$this>(${DataStoreConst.USEFUL_SECURITY_PRIMARY_PROPERTY}, $this::class) {" +
+                "\n.mapDecrypt<$this>(" +
+                "\n\tusefulSecurity = ${DataStoreConst.USEFUL_SECURITY_PRIMARY_PROPERTY}," +
+                "\n\ttype = $this::class," +
+                "\n\tdefaultValue = ${this.generateDefaultValueStringType(defaultValue)}," +
+                "\n) {" +
                 "\nit[$keyClassName.${key.upperKey()}]" +
                 "\n}"
 
