@@ -23,6 +23,7 @@ sealed interface DataType {
 
     data class Get(
         override val key: String,
+        val defaultValue: String,
         override val functionInfo: KSFunctionDeclaration,
         override val valueType: KSName,
         override val isSuspend: Boolean = functionInfo.modifiers.hasSuspend(),

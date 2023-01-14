@@ -20,9 +20,9 @@ internal fun KSFunctionDeclaration.filterAnnotation(predicate: (name: String) ->
 /**
  * find `key` argument
  */
-internal fun KSFunctionDeclaration.findKeyArgument(): String? =
+internal fun KSFunctionDeclaration.findArgument(key: String): String? =
     annotations.firstOrNull()?.arguments?.firstOrNull { ksValueArgument ->
-        ksValueArgument.name?.asString() == DataStoreConst.ANNOTATION_KEY_ARGUMENT
+        ksValueArgument.name?.asString() == key
     }?.let { ksValueArgument ->
         ksValueArgument.value as String
     }

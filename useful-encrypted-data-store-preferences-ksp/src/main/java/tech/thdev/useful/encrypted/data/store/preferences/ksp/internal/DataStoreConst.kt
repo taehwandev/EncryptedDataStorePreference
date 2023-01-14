@@ -18,6 +18,7 @@ internal object DataStoreConst {
     val ANNOTATION_GET_VALUE = GetValue::class.asClassName()
     val ANNOTATION_SET_VALUE = SetValue::class.asClassName()
     const val ANNOTATION_KEY_ARGUMENT = "key"
+    const val ANNOTATION_DEFAULT_ARGUMENT = "defaultValue"
 
     val ANNOTATION_CLEAR_VALUES = ClearValues::class.asClassName()
 

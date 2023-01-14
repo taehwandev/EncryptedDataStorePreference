@@ -9,41 +9,41 @@ import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.
 @UsefulPreferences
 interface SecurityPreferences {
 
-    @GetValue(KEY_INT)
-    fun getInt(): Flow<Int>
+    @GetValue(KEY_INT, "200")
+    fun flowInt(): Flow<Int>
 
-    @GetValue(KEY_INT)
-    suspend fun getIntValue(): Int
+    @GetValue(KEY_INT, "200")
+    suspend fun getInt(): Int
 
     @SetValue(KEY_INT)
     suspend fun setInt(value: Int)
 
-    @GetValue(KEY_DOUBLE)
-    fun getDouble(): Flow<Double>
+    @GetValue(KEY_DOUBLE, "0.0153")
+    fun flowDouble(): Flow<Double>
 
     @SetValue(KEY_DOUBLE)
     suspend fun setDouble(value: Double)
 
-    @GetValue(KEY_STRING)
-    fun getString(): Flow<String>
+    @GetValue(KEY_STRING, "default string")
+    fun flowString(): Flow<String>
 
     @SetValue(KEY_STRING)
     suspend fun setString(value: String)
 
-    @GetValue(KEY_BOOLEAN)
-    fun getBoolean(): Flow<Boolean>
+    @GetValue(KEY_BOOLEAN, "true")
+    fun flowBoolean(): Flow<Boolean>
 
     @SetValue(KEY_BOOLEAN)
     suspend fun setBoolean(value: Boolean)
 
-    @GetValue(KEY_FLOAT)
-    fun getFloat(): Flow<Float>
+    @GetValue(KEY_FLOAT, "1234.11")
+    fun flowFloat(): Flow<Float>
 
     @SetValue(KEY_FLOAT)
     suspend fun setFloat(value: Float)
 
-    @GetValue(KEY_LONG)
-    fun getLong(): Flow<Long>
+    @GetValue(KEY_LONG, "949")
+    fun flowLong(): Flow<Long>
 
     @SetValue(KEY_LONG)
     suspend fun setLong(value: Long)
