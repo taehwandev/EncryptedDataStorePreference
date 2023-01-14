@@ -53,40 +53,40 @@ Long -> "0"
 @UsefulPreferences(/* option. Not use security - disableSecurity = true */)
 interface SecurityPreferences {
 
-    @GetValue(KEY_INT, /* option default value : defaultValue = "123" */)
+    @GetValue(KEY_INT, /* option : defaultValue = "123" */)
     fun flowInt(): Flow<Int>
 
-    @GetValue(KEY_INT, /* option default value : defaultValue = "123" */)
+    @GetValue(KEY_INT, /* option : defaultValue = "123" */)
     suspend fun getInt(): Int
 
     @SetValue(KEY_INT)
     suspend fun flowInt(value: Int)
 
-    @GetValue(KEY_DOUBLE, /* option default value : defaultValue = "123.0" */)
+    @GetValue(KEY_DOUBLE, /* option : defaultValue = "123.0" */)
     fun flowDouble(): Flow<Double>
 
     @SetValue(KEY_DOUBLE)
     suspend fun setDouble(value: Double)
 
-    @GetValue(KEY_STRING, /* option default value : defaultValue = "message" */)
+    @GetValue(KEY_STRING, /* option : defaultValue = "message" */)
     fun flowString(): Flow<String>
 
     @SetValue(KEY_STRING)
     suspend fun setString(value: String)
 
-    @GetValue(KEY_BOOLEAN, /* option default value : defaultValue = "true/false" */)
+    @GetValue(KEY_BOOLEAN, /* option : defaultValue = "true/false" */)
     fun flowBoolean(): Flow<Boolean>
 
     @SetValue(KEY_BOOLEAN)
     suspend fun setBoolean(value: Boolean)
 
-    @GetValue(KEY_FLOAT, /* option default value : defaultValue = "123.0" */)
+    @GetValue(KEY_FLOAT, /* option : defaultValue = "123.0" */)
     fun flowFloat(): Flow<Float>
 
     @SetValue(KEY_FLOAT)
     suspend fun setFloat(value: Float)
 
-    @GetValue(KEY_LONG, /* option default value : defaultValue = "123" */)
+    @GetValue(KEY_LONG, /* option : defaultValue = "123" */)
     fun flowLong(): Flow<Long>
 
     @SetValue(KEY_LONG)
