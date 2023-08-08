@@ -1,7 +1,7 @@
 [versions]
-buildToolsVersion = "33.0.1"
-compileSdk = "33"
-targetSdk = "33"
+buildToolsVersion = "34.0.0"
+compileSdk = "34"
+targetSdk = "34"
 minSdk = "23"
 
 major = "1"
@@ -10,70 +10,68 @@ hotfix = "0"
 versionCode = "1"
 
 ## Android gradle plugin
-androidGradlePlugin = "7.4.0"
+androidGradlePlugin = "8.1.0"
 
 ## UsefulDataStorePreference
 usefulDataStorePreference = "1.0.0-alpha03"
 
 ## kotlin
 # https://github.com/JetBrains/kotlin
-kotlin = "1.7.21"
+kotlin = "1.9.0"
 
 ## Coroutine
 # https://github.com/Kotlin/kotlinx.coroutines
-coroutines = "1.6.4"
+coroutines = "1.7.3"
 # https://github.com/cashapp/turbine
-coroutines-turbine = "0.12.1"
+coroutines-turbine = "1.0.0"
 
 ## KSP
 # https://github.com/google/ksp
-ksp = "1.7.21-1.0.8"
+ksp = "1.9.0-1.0.13"
 # https://github.com/square/kotlinpoet
-kotlinPoet = "1.12.0"
+kotlinPoet = "1.14.2"
 # https://github.com/tschuchortdev/kotlin-compile-testing
-kspTestVersion = "1.4.9"
+kspTestVersion = "1.5.0"
 
 ## AndroidX
 # https://developer.android.com/jetpack/androidx/releases/annotation
-androidx-annotation = "1.5.0"
+androidx-annotation = "1.7.0-alpha03"
 # https://developer.android.com/jetpack/androidx/releases/core
-androidx-coreKtx = "1.9.0"
+androidx-coreKtx = "1.12.0-beta01"
 # https://developer.android.com/jetpack/androidx/releases/appcompat
-androidx-appCompat = "1.7.0-alpha01"
+androidx-appCompat = "1.7.0-alpha03"
 # https://developer.android.com/jetpack/androidx/releases/activity
-androidx-activity = "1.7.0-alpha02"
-# https://developer.android.com/jetpack/androidx/releases/fragment
-androidx-fragment = "1.6.0-alpha03"
+androidx-activity = "1.8.0-alpha06"
 # https://developer.android.com/jetpack/androidx/releases/vectordrawable
 androidx-vectorDrawable = "1.2.0-beta01"
 # https://developer.android.com/jetpack/androidx/releases/lifecycle
-androidx-lifecycleVersion = "2.6.0-alpha03"
+androidx-lifecycleVersion = "2.7.0-alpha01"
 # https://developer.android.com/jetpack/androidx/releases/security
-androidx-securityCrypto = "1.1.0-alpha04"
+androidx-securityCrypto = "1.1.0-alpha06"
 # https://developer.android.com/jetpack/androidx/releases/datastore
 androidx-dataStorePreferences = "1.0.0"
 
 ## Compose
 # https://developer.android.com/jetpack/androidx/releases/compose
-compose = "1.4.0-alpha03"
+compose = "1.6.0-alpha02"
 # https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-compose-compilerVersion = "1.4.0-alpha02"
+compose-compilerVersion = "1.5.1"
 # https://developer.android.com/jetpack/androidx/releases/compose-material3
-compose-material3 = "1.1.0-alpha03"
+compose-material3 = "1.2.0-alpha04"
 
 ## Test
 # https://developer.android.com/jetpack/androidx/releases/test
-test-androidx-core = "1.5.0"
-test-androidx-runner = "1.5.0"
-test-androidx-junit = "1.1.4"
+test-androidx-core = "1.6.0-alpha01"
+test-androidx-runner = "1.6.0-alpha03"
+test-androidx-junit = "1.2.0-alpha01"
 # https://github.com/robolectric/robolectric
-test-robolectric = "4.9"
+test-robolectric = "4.10.3"
 # https://github.com/mockito/mockito
-test-mockito = "4.9.0"
+test-mockito = "5.4.0"
 # https://github.com/mockito/mockito-kotlin
-test-mockito-kotlin = "4.1.0"
+test-mockito-kotlin = "5.0.0"
 # https://github.com/mannodermaus/android-junit5
-test-junit5 = "5.8.2"
+test-junit5 = "5.9.3"
 
 [libraries]
 ## usefulDataStorePreference
@@ -97,7 +95,6 @@ androidx-annotation = { module = "androidx.annotation:annotation", version.ref =
 androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidx-coreKtx" }
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycleVersion" }
 androidx-vectorDrawable = { module = "androidx.vectordrawable:vectordrawable", version.ref = "androidx-vectorDrawable" }
 androidx-securityCrypto = { module = "androidx.security:security-crypto", version.ref = "androidx-securityCrypto" }
