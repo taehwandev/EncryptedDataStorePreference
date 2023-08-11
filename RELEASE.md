@@ -1,3 +1,7 @@
+## 1.9.0-1.0.13-1.2.0-alpha01
+
+- Secure change. Use AndroidKeyStore
+
 ## 1.7.21-1.0.8-1.1.0-alpha01
 
 - Add defaultValue

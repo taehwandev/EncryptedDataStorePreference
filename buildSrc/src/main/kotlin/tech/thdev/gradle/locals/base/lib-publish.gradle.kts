@@ -1,6 +1,4 @@
-import com.android.build.gradle.api.*
-import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.konan.properties.*
+import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     kotlin("jvm")

@@ -1,6 +1,6 @@
-import com.android.build.gradle.api.*
+import com.android.build.gradle.api.AndroidSourceSet
 import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.konan.properties.*
+import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     id("com.android.library")
