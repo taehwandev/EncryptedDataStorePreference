@@ -1,4 +1,4 @@
-package tech.thdev.encrypteddatastorepreference.compose.sub
+package tech.thdev.encrypteddatastorepreference.compose.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import tech.thdev.encrypteddatastorepreference.ui.theme.EncryptedDataStorePreferenceTheme
 
 @Composable
-internal fun TestContainer(
+internal fun TestItem(
     text: String,
     buttonText: String,
     onClick: () -> Unit,
@@ -41,9 +41,9 @@ internal fun TestContainer(
 
 @Preview
 @Composable
-internal fun PreviewTestButton() {
+internal fun PreviewTestItem() {
     EncryptedDataStorePreferenceTheme {
-        TestContainer(
+        TestItem(
             text = "Text",
             buttonText = "Button",
             onClick = {},

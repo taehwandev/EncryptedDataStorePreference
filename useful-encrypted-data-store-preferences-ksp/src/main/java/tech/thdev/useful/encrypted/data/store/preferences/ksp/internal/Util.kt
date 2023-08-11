@@ -32,7 +32,7 @@ internal fun KSFunctionDeclaration.findArgument(key: String): String? =
  */
 internal fun KSClassDeclaration.findDisableEncrypted(): Boolean =
     annotations.firstOrNull()?.arguments?.firstOrNull { ksValueArgument ->
-        ksValueArgument.name?.asString() == DataStoreConst.ANNOTATION_DISABLE_SECURITY
+        ksValueArgument.name?.asString() == DataStoreConst.ANNOTATION_DISABLE_SECURE
     }?.let { ksValueArgument ->
         ksValueArgument.value as Boolean
     } ?: false

@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -20,8 +18,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import tech.thdev.encrypteddatastorepreference.compose.sub.TestContainer
-import tech.thdev.encrypteddatastorepreference.localMainViewModel
+import tech.thdev.encrypteddatastorepreference.compose.component.TestItem
+import tech.thdev.encrypteddatastorepreference.localSecureSampleViewModel
 import tech.thdev.encrypteddatastorepreference.ui.theme.EncryptedDataStorePreferenceTheme
 
 @Composable
@@ -30,16 +28,16 @@ fun <T> MutableState<T>.asRemember(): State<T> {
 }
 
 @Composable
-internal fun MainContainer() {
-    val intValue by localMainViewModel.intValue.asRemember()
-    val doubleValue by localMainViewModel.doubleValue.asRemember()
-    val floatValue by localMainViewModel.floatValue.asRemember()
-    val stringValue by localMainViewModel.stringValue.asRemember()
-    val booleanValue by localMainViewModel.booleanValue.asRemember()
-    val longValue by localMainViewModel.longValue.asRemember()
+internal fun SecureSampleScreen() {
+    val intValue by localSecureSampleViewModel.intValue.asRemember()
+    val doubleValue by localSecureSampleViewModel.doubleValue.asRemember()
+    val floatValue by localSecureSampleViewModel.floatValue.asRemember()
+    val stringValue by localSecureSampleViewModel.stringValue.asRemember()
+    val booleanValue by localSecureSampleViewModel.booleanValue.asRemember()
+    val longValue by localSecureSampleViewModel.longValue.asRemember()
 
-    val viewModel = localMainViewModel
-    MainContainer(
+    val viewModel = localSecureSampleViewModel
+    SecureSampleScreen(
         intValue = intValue,
         onClickChangeInt = {
             viewModel.intValueChange()
@@ -71,7 +69,7 @@ internal fun MainContainer() {
 }
 
 @Composable
-internal fun MainContainer(
+internal fun SecureSampleScreen(
     intValue: Int,
     onClickChangeInt: () -> Unit,
     doubleValue: Double,
@@ -86,75 +84,69 @@ internal fun MainContainer(
     onClickChangeLong: () -> Unit,
     onClickClean: () -> Unit,
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
+            .verticalScroll(rememberScrollState())
     ) {
-        Column(
+        Text(
+            text = "Encrypted Preference test",
+            style = TextStyle(fontSize = 20.sp)
+        )
+
+        TestItem(
+            text = "Int value $intValue",
+            buttonText = "Int type",
+            onClick = onClickChangeInt,
+        )
+
+        TestItem(
+            text = "Double value $doubleValue",
+            buttonText = "Double type",
+            onClick = onClickChangeDouble,
+        )
+
+        TestItem(
+            text = "String value $stringValue",
+            buttonText = "String type",
+            onClick = onClickChangeString,
+        )
+
+        TestItem(
+            text = "Boolean value $booleanValue",
+            buttonText = "Boolean type",
+            onClick = onClickChangeBoolean,
+        )
+
+        TestItem(
+            text = "Long value $longValue",
+            buttonText = "Long type",
+            onClick = onClickChangeLong,
+        )
+
+        TestItem(
+            text = "Float value $floatValue",
+            buttonText = "Float type",
+            onClick = onClickChangeFloat,
+        )
+
+        Button(
+            onClick = onClickClean,
             modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+                .padding(top = 10.dp)
         ) {
-            Text(
-                text = "Encrypted Preference test",
-                style = TextStyle(fontSize = 20.sp)
-            )
-
-            TestContainer(
-                text = "Int value $intValue",
-                buttonText = "Int type",
-                onClick = onClickChangeInt,
-            )
-
-            TestContainer(
-                text = "Double value $doubleValue",
-                buttonText = "Double type",
-                onClick = onClickChangeDouble,
-            )
-
-            TestContainer(
-                text = "String value $stringValue",
-                buttonText = "String type",
-                onClick = onClickChangeString,
-            )
-
-            TestContainer(
-                text = "Boolean value $booleanValue",
-                buttonText = "Boolean type",
-                onClick = onClickChangeBoolean,
-            )
-
-            TestContainer(
-                text = "Long value $longValue",
-                buttonText = "Long type",
-                onClick = onClickChangeLong,
-            )
-
-            TestContainer(
-                text = "Float value $floatValue",
-                buttonText = "Float type",
-                onClick = onClickChangeFloat,
-            )
-
-            Button(
-                onClick = onClickClean,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-            ) {
-                Text(text = "Clear value")
-            }
+            Text(text = "Clear value")
         }
     }
 }
 
 @Preview
 @Composable
-internal fun PreviewMainContainer() {
+internal fun PreviewSecureSampleScreen() {
     EncryptedDataStorePreferenceTheme {
-        MainContainer(
+        SecureSampleScreen(
             intValue = 0,
             onClickChangeInt = {},
             doubleValue = 0.123,

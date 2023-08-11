@@ -63,4 +63,4 @@ private const val KEY_LONG = "key-long"
  */
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
-annotation class UsefulPreferences(@Suppress("unused") val disableSecurity: Boolean = false)
+annotation class UsefulPreferences(@Suppress("unused") val disableSecure: Boolean = false)

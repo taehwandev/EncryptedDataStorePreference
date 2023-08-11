@@ -44,7 +44,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
                 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.SetValue
                 
-                @UsefulPreferences(disableSecurity = true)
+                @UsefulPreferences(disableSecure = true)
                 interface SecurityPreferences {
                 
                     @GetValue(KEY_INT)
@@ -143,7 +143,6 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import androidx.datastore.core.DataStore
                 import androidx.datastore.preferences.core.Preferences
                 import androidx.datastore.preferences.core.edit
-                import kotlin.Unit
                 import kotlinx.coroutines.flow.Flow
                 import kotlinx.coroutines.flow.first
                 import kotlinx.coroutines.flow.map
@@ -162,7 +161,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   }
                   .first()
                 
-                  public override suspend fun setInt(`value`: Int): Unit {
+                  public override suspend fun setInt(`value`: Int) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_INT] = value
                         }
@@ -173,7 +172,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_DOUBLE] ?: 0.0
                   }
                 
-                  public override suspend fun setDouble(`value`: Double): Unit {
+                  public override suspend fun setDouble(`value`: Double) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_DOUBLE] = value
                         }
@@ -184,7 +183,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_STRING] ?: ""
                   }
                 
-                  public override suspend fun setString(`value`: String): Unit {
+                  public override suspend fun setString(`value`: String) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_STRING] = value
                         }
@@ -195,7 +194,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_BOOLEAN] ?: false
                   }
                 
-                  public override suspend fun setBoolean(`value`: Boolean): Unit {
+                  public override suspend fun setBoolean(`value`: Boolean) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_BOOLEAN] = value
                         }
@@ -206,7 +205,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_FLOAT] ?: 0.0F
                   }
                 
-                  public override suspend fun setFloat(`value`: Float): Unit {
+                  public override suspend fun setFloat(`value`: Float) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_FLOAT] = value
                         }
@@ -217,13 +216,13 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_LONG] ?: 0L
                   }
                 
-                  public override suspend fun setLong(`value`: Long): Unit {
+                  public override suspend fun setLong(`value`: Long) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_LONG] = value
                         }
                   }
                 
-                  public override suspend fun clearAll(): Unit {
+                  public override suspend fun clearAll() {
                     preferencesStore.edit {
                         it.clear()
                         }
@@ -272,7 +271,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
                 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.SetValue
                 
-                @UsefulPreferences(disableSecurity = true)
+                @UsefulPreferences(disableSecure = true)
                 interface SecurityPreferences {
                 
                     @GetValue(KEY_INT, "30")
@@ -371,7 +370,6 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import androidx.datastore.core.DataStore
                 import androidx.datastore.preferences.core.Preferences
                 import androidx.datastore.preferences.core.edit
-                import kotlin.Unit
                 import kotlinx.coroutines.flow.Flow
                 import kotlinx.coroutines.flow.first
                 import kotlinx.coroutines.flow.map
@@ -390,7 +388,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   }
                   .first()
                 
-                  public override suspend fun setInt(`value`: Int): Unit {
+                  public override suspend fun setInt(`value`: Int) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_INT] = value
                         }
@@ -401,7 +399,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_DOUBLE] ?: 20.03
                   }
                 
-                  public override suspend fun setDouble(`value`: Double): Unit {
+                  public override suspend fun setDouble(`value`: Double) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_DOUBLE] = value
                         }
@@ -412,7 +410,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_STRING] ?: "default value"
                   }
                 
-                  public override suspend fun setString(`value`: String): Unit {
+                  public override suspend fun setString(`value`: String) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_STRING] = value
                         }
@@ -423,7 +421,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_BOOLEAN] ?: true
                   }
                 
-                  public override suspend fun setBoolean(`value`: Boolean): Unit {
+                  public override suspend fun setBoolean(`value`: Boolean) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_BOOLEAN] = value
                         }
@@ -434,7 +432,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_FLOAT] ?: 130.0
                   }
                 
-                  public override suspend fun setFloat(`value`: Float): Unit {
+                  public override suspend fun setFloat(`value`: Float) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_FLOAT] = value
                         }
@@ -445,13 +443,13 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_LONG] ?: 60
                   }
                 
-                  public override suspend fun setLong(`value`: Long): Unit {
+                  public override suspend fun setLong(`value`: Long) {
                     preferencesStore.edit {
                         it[SecurityPreferencesKeys.KEY_LONG] = value
                         }
                   }
                 
-                  public override suspend fun clearAll(): Unit {
+                  public override suspend fun clearAll() {
                     preferencesStore.edit {
                         it.clear()
                         }
@@ -594,7 +592,6 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import androidx.datastore.core.DataStore
                 import androidx.datastore.preferences.core.Preferences
                 import androidx.datastore.preferences.core.edit
-                import kotlin.Unit
                 import kotlinx.coroutines.flow.Flow
                 import kotlinx.coroutines.flow.first
                 import tech.thdev.useful.encrypted.`data`.store.preferences.extensions.editEncrypt
@@ -624,7 +621,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   }
                   .first()
                 
-                  public override suspend fun setInt(`value`: Int): Unit {
+                  public override suspend fun setInt(`value`: Int) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_INT] = encrypted
                         }
@@ -639,7 +636,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_DOUBLE]
                   }
                 
-                  public override suspend fun setDouble(`value`: Double): Unit {
+                  public override suspend fun setDouble(`value`: Double) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_DOUBLE] = encrypted
                         }
@@ -654,7 +651,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_STRING]
                   }
                 
-                  public override suspend fun setString(`value`: String): Unit {
+                  public override suspend fun setString(`value`: String) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_STRING] = encrypted
                         }
@@ -669,7 +666,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_BOOLEAN]
                   }
                 
-                  public override suspend fun setBoolean(`value`: Boolean): Unit {
+                  public override suspend fun setBoolean(`value`: Boolean) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_BOOLEAN] = encrypted
                         }
@@ -684,7 +681,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_FLOAT]
                   }
                 
-                  public override suspend fun setFloat(`value`: Float): Unit {
+                  public override suspend fun setFloat(`value`: Float) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_FLOAT] = encrypted
                         }
@@ -699,13 +696,13 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_LONG]
                   }
                 
-                  public override suspend fun setLong(`value`: Long): Unit {
+                  public override suspend fun setLong(`value`: Long) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_LONG] = encrypted
                         }
                   }
                 
-                  public override suspend fun clearAll(): Unit {
+                  public override suspend fun clearAll() {
                     preferencesStore.edit {
                         it.clear()
                         }
@@ -849,7 +846,6 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                 import androidx.datastore.core.DataStore
                 import androidx.datastore.preferences.core.Preferences
                 import androidx.datastore.preferences.core.edit
-                import kotlin.Unit
                 import kotlinx.coroutines.flow.Flow
                 import kotlinx.coroutines.flow.first
                 import tech.thdev.useful.encrypted.`data`.store.preferences.extensions.editEncrypt
@@ -879,7 +875,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   }
                   .first()
                 
-                  public override suspend fun setInt(`value`: Int): Unit {
+                  public override suspend fun setInt(`value`: Int) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_INT] = encrypted
                         }
@@ -894,7 +890,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_DOUBLE]
                   }
                 
-                  public override suspend fun setDouble(`value`: Double): Unit {
+                  public override suspend fun setDouble(`value`: Double) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_DOUBLE] = encrypted
                         }
@@ -909,7 +905,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_STRING]
                   }
                 
-                  public override suspend fun setString(`value`: String): Unit {
+                  public override suspend fun setString(`value`: String) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_STRING] = encrypted
                         }
@@ -924,7 +920,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_BOOLEAN]
                   }
                 
-                  public override suspend fun setBoolean(`value`: Boolean): Unit {
+                  public override suspend fun setBoolean(`value`: Boolean) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_BOOLEAN] = encrypted
                         }
@@ -939,7 +935,7 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_FLOAT]
                   }
                 
-                  public override suspend fun setFloat(`value`: Float): Unit {
+                  public override suspend fun setFloat(`value`: Float) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_FLOAT] = encrypted
                         }
@@ -954,13 +950,13 @@ internal class EncryptedDataStorePreferencesProcessorProviderTest {
                   it[SecurityPreferencesKeys.KEY_LONG]
                   }
                 
-                  public override suspend fun setLong(`value`: Long): Unit {
+                  public override suspend fun setLong(`value`: Long) {
                     preferencesStore.editEncrypt(usefulSecurity, value) { preferences, encrypted -> 
                         preferences[SecurityPreferencesKeys.KEY_LONG] = encrypted
                         }
                   }
                 
-                  public override suspend fun clearAll(): Unit {
+                  public override suspend fun clearAll() {
                     preferencesStore.edit {
                         it.clear()
                         }

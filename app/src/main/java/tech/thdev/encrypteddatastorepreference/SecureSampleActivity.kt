@@ -8,25 +8,29 @@ import androidx.activity.viewModels
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import tech.thdev.encrypteddatastorepreference.compose.MainContainer
+import tech.thdev.encrypteddatastorepreference.compose.SecureSampleScreen
 import tech.thdev.encrypteddatastorepreference.ui.theme.EncryptedDataStorePreferenceTheme
-import tech.thdev.samplepreference.repository.SecurityPreferences
-import tech.thdev.samplepreference.repository.generateSecurityPreferences
+import tech.thdev.samplepreference.repository.SecurePreferences
+import tech.thdev.samplepreference.repository.generateSecurePreferences
 import tech.thdev.useful.encrypted.data.store.preferences.security.generateUsefulSecurity
 
-class MainActivity : ComponentActivity() {
+class SecureSampleActivity : ComponentActivity() {
 
     private val Context.dataStore by preferencesDataStore(name = "security-preference")
 
-    private val securityPreference: SecurityPreferences by lazy {
-        dataStore.generateSecurityPreferences(generateUsefulSecurity())
+    private val securityPreference: SecurePreferences by lazy {
+        dataStore.generateSecurePreferences(
+            generateUsefulSecurity(
+                keyStoreAlias = packageName,
+            )
+        )
     }
 
     @Suppress("UNCHECKED_CAST")
-    internal val viewModel by viewModels<MainViewModel> {
+    internal val viewModel by viewModels<SecureSampleViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel(securityPreference) as T
+                return SecureSampleViewModel(securityPreference) as T
             }
         }
     }
@@ -36,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeLocalProvider {
                 EncryptedDataStorePreferenceTheme {
-                    MainContainer()
+                    SecureSampleScreen()
                 }
             }
         }

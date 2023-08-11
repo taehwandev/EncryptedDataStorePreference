@@ -1,5 +1,3 @@
-@file:Suppress("NOTHING_TO_INLINE")
-
 package tech.thdev.useful.encrypted.data.store.preferences.extensions
 
 import androidx.datastore.core.DataStore

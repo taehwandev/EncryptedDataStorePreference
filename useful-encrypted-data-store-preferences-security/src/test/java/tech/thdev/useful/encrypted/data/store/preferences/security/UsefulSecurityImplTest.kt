@@ -1,8 +1,8 @@
 package tech.thdev.useful.encrypted.data.store.preferences.security
 
 import android.os.Build
+import org.junit.Test
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -11,7 +11,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 internal class UsefulSecurityImplTest {
 
-    private val security = UsefulSecurityImpl()
+    private val security = UsefulSecurityImpl(useTest = true)
 
     @Test
     fun `test security`() {

@@ -6,8 +6,8 @@ import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.GetValue
 import tech.thdev.useful.encrypted.data.store.preferences.ksp.annotations.value.SetValue
 
-@UsefulPreferences(disableSecurity = true)
-interface DisableSecurityPreferences {
+@UsefulPreferences(disableSecure = true)
+interface NonSecurePreferences {
 
     @GetValue(KEY_INT, "100")
     fun getInt(): Flow<Int>

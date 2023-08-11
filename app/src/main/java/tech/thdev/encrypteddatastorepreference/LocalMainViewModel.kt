@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 
-private val LocalMainViewModel: ProvidableCompositionLocal<MainViewModel?> =
-    compositionLocalOf<MainViewModel?> { null }
+private val LocalSecureSampleViewModel: ProvidableCompositionLocal<SecureSampleViewModel?> =
+    compositionLocalOf<SecureSampleViewModel?> { null }
 
-internal fun mainViewModelProvider(developViewModel: MainViewModel) =
-    LocalMainViewModel provides developViewModel
+internal fun mainViewModelProvider(developViewModel: SecureSampleViewModel) =
+    LocalSecureSampleViewModel provides developViewModel
 
-internal val localMainViewModel: MainViewModel
+internal val localSecureSampleViewModel: SecureSampleViewModel
     @Composable
-    get() = LocalMainViewModel.current!!
+    get() = LocalSecureSampleViewModel.current!!

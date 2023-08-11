@@ -13,7 +13,7 @@ internal object DataStoreConst {
     const val DEBUG = false
 
     val ANNOTATION_USEFUL_PREFERENCES = UsefulPreferences::class.asClassName()
-    const val ANNOTATION_DISABLE_SECURITY = "disableSecurity"
+    const val ANNOTATION_DISABLE_SECURE = "disableSecure"
 
     val ANNOTATION_GET_VALUE = GetValue::class.asClassName()
     val ANNOTATION_SET_VALUE = SetValue::class.asClassName()
