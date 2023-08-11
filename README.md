@@ -2,15 +2,15 @@
 
 Android Encrypted DataStorePreference.
 
-Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.7.21-1.0.8).
+Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.9.0-1.0.13).
 
 ## Download
 
 Use gradle
 
-alpha01 - lastVersion 1.7.21-1.0.8-1.1.0-alpha01
+alpha - lastVersion 1.9.0-1.0.13-1.2.0-alpha01
 
-stable - lastVersion 1.7.21-1.0.8-1.0.0
+stable - lastVersion 1.9.0-1.0.13-1.0.0
 
 ```groovy
 ksp "tech.thdev:useful-encrypted-data-store-preferences-ksp:$lastVersion"
@@ -50,7 +50,7 @@ Long -> "0"
 ```
 
 ```kotlin
-@UsefulPreferences(/* option. Not use security - disableSecurity = true */)
+@UsefulPreferences(/* option. Not use security - disableSecure = true */)
 interface SecurityPreferences {
 
     @GetValue(KEY_INT, /* option : defaultValue = "123" */)
@@ -110,7 +110,7 @@ interface SecurityPreferences {
 Use code - stable 1.0.0
 
 ```kotlin
-@UsefulPreferences(/* option. Not use security - disableSecurity = true */)
+@UsefulPreferences(/* option. Not use security - disableSecure = true */)
 interface SecurityPreferences {
 
     @GetValue(KEY_INT)
@@ -178,7 +178,11 @@ class SampleActivity {
     private val Context.dataStore by preferencesDataStore(name = "security-preference")
 
     private val securityPreference: SecurityPreferences by lazy {
-        dataStore.generateSecurityPreferences(generateUsefulSecurity())
+        dataStore.generateSecurePreferences(
+            generateUsefulSecurity(
+                keyStoreAlias = packageName,
+            ),
+        )
     }
     
     // SetValue
