@@ -8,7 +8,7 @@ Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp ve
 
 Use gradle
 
-alpha - lastVersion 1.9.0-1.0.13-1.2.0-alpha01
+alpha - lastVersion 1.9.0-1.0.13-1.2.0-alpha02
 
 stable - lastVersion 1.9.0-1.0.13-1.0.0
 
@@ -36,7 +36,7 @@ Release version are available in [Sonatyp's repository.](https://search.maven.or
 
 ## Use Code
 
-Use code - alpha01
+Use code - alpha
 
 default value option. and only string.
 
@@ -110,7 +110,7 @@ interface SecurityPreferences {
 Use code - stable 1.0.0
 
 ```kotlin
-@UsefulPreferences(/* option. Not use security - disableSecure = true */)
+@UsefulPreferences(/* option. Not use security - disableSecurity = true */)
 interface SecurityPreferences {
 
     @GetValue(KEY_INT)
