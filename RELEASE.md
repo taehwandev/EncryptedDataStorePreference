@@ -1,3 +1,10 @@
+## 1.9.0-1.0.13-1.2.0-alpha02
+
+- Performance improvement
+  - Split keystore value.
+- Change ecb.
+  - Fix app First start decrypt fail.
+
 ## 1.9.0-1.0.13-1.2.0-alpha01
 
 - Secure change. Use AndroidKeyStore
