@@ -1,3 +1,9 @@
+## 1.9.10-1.0.13-1.2.0-alpha03
+
+- Library update.
+- Kotlin 1.9.10
+- KSP 1.9.10-1.0.13
+
 ## 1.9.0-1.0.13-1.2.0-alpha02
 
 - Performance improvement
