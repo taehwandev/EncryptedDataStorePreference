@@ -1,7 +1,7 @@
 [versions]
-buildToolsVersion = "34.0.0"
-compileSdk = "34"
-targetSdk = "34"
+buildToolsVersion = "35.0.0"
+compileSdk = "35"
+targetSdk = "35"
 minSdk = "23"
 
 major = "1"
@@ -9,69 +9,72 @@ minor = "0"
 hotfix = "0"
 versionCode = "1"
 
+## Publish version
+libraryVersion = "1.9.25-1.0.20-1.2.0"
+
 ## Android gradle plugin
-androidGradlePlugin = "8.1.1"
+androidGradlePlugin = "8.5.2"
 
 ## UsefulDataStorePreference
-usefulDataStorePreference = "1.0.0-alpha03"
+usefulDataStorePreference = "1.0.0-alpha04"
 
 ## kotlin
 # https://github.com/JetBrains/kotlin
-kotlin = "1.9.10"
+kotlin = "1.9.25"
 
 ## Coroutine
 # https://github.com/Kotlin/kotlinx.coroutines
-coroutines = "1.7.3"
+coroutines = "1.8.1"
 # https://github.com/cashapp/turbine
-coroutines-turbine = "1.0.0"
+coroutines-turbine = "1.1.0"
 
 ## KSP
 # https://github.com/google/ksp
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.25-1.0.20"
 # https://github.com/square/kotlinpoet
-kotlinPoet = "1.14.2"
+kotlinPoet = "1.18.1"
 # https://github.com/tschuchortdev/kotlin-compile-testing
-kspTestVersion = "1.5.0"
+kspTestVersion = "1.6.0"
 
 ## AndroidX
 # https://developer.android.com/jetpack/androidx/releases/annotation
-androidx-annotation = "1.7.0"
+androidx-annotation = "1.8.2"
 # https://developer.android.com/jetpack/androidx/releases/core
-androidx-coreKtx = "1.12.0"
+androidx-coreKtx = "1.13.1"
 # https://developer.android.com/jetpack/androidx/releases/appcompat
-androidx-appCompat = "1.7.0-alpha03"
+androidx-appCompat = "1.7.0"
 # https://developer.android.com/jetpack/androidx/releases/activity
-androidx-activity = "1.8.0-beta01"
+androidx-activity = "1.9.1"
 # https://developer.android.com/jetpack/androidx/releases/vectordrawable
-androidx-vectorDrawable = "1.2.0-beta01"
+androidx-vectorDrawable = "1.2.0"
 # https://developer.android.com/jetpack/androidx/releases/lifecycle
-androidx-lifecycleVersion = "2.7.0-alpha02"
+androidx-lifecycleVersion = "2.8.4"
 # https://developer.android.com/jetpack/androidx/releases/security
 androidx-securityCrypto = "1.1.0-alpha06"
 # https://developer.android.com/jetpack/androidx/releases/datastore
-androidx-dataStorePreferences = "1.0.0"
+androidx-dataStorePreferences = "1.1.1"
 
 ## Compose
 # https://developer.android.com/jetpack/androidx/releases/compose
-compose = "1.6.0-alpha06"
+compose = "1.7.0-rc01"
 # https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-compose-compilerVersion = "1.5.3"
+compose-compilerVersion = "1.5.15"
 # https://developer.android.com/jetpack/androidx/releases/compose-material3
-compose-material3 = "1.2.0-alpha08"
+compose-material3 = "1.3.0-rc01"
 
 ## Test
 # https://developer.android.com/jetpack/androidx/releases/test
-test-androidx-core = "1.6.0-alpha01"
-test-androidx-runner = "1.6.0-alpha04"
-test-androidx-junit = "1.2.0-alpha01"
+test-androidx-core = "1.6.1"
+test-androidx-runner = "1.6.2"
+test-androidx-junit = "1.2.1"
 # https://github.com/robolectric/robolectric
-test-robolectric = "4.10.3"
+test-robolectric = "4.13"
 # https://github.com/mockito/mockito
-test-mockito = "5.5.0"
+test-mockito = "5.12.0"
 # https://github.com/mockito/mockito-kotlin
-test-mockito-kotlin = "5.1.0"
+test-mockito-kotlin = "5.4.0"
 # https://github.com/mannodermaus/android-junit5
-test-junit5 = "5.9.3"
+test-junit5 = "5.11.0"
 
 [libraries]
 ## usefulDataStorePreference

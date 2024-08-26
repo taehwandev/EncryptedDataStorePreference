@@ -9,7 +9,7 @@ plugins {
 }
 
 ext["libraryName"] = "useful-encrypted-data-store-preferences-security"
-ext["libraryVersion"] = Publish.libraryVersion
+ext["libraryVersion"] = libs.versions.libraryVersion.get()
 ext["description"] = Publish.description
 ext["url"] = Publish.publishUrl
 
@@ -21,7 +21,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,12 +28,18 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -66,17 +71,16 @@ dependencies {
     implementation(libs.androidx.dataStorePreferencesCore)
     implementation(libs.androidx.securityCrypto)
 
-    libs.test.run {
-        testImplementation(androidx.core)
-        testImplementation(androidx.runner)
-        testImplementation(androidx.junit)
-        testImplementation(robolectric)
-        testImplementation(mockito.kotlin)
-        testImplementation(junit5)
-        testImplementation(junit5.engine)
-        testRuntimeOnly(junit5.vintage)
-        testImplementation(coroutines)
-        testImplementation(coroutines.turbine)
-    }
+    testImplementation(libs.test.androidx.core)
+    testImplementation(libs.test.androidx.runner)
+    testImplementation(libs.test.androidx.junit)
+    testImplementation(libs.test.robolectric)
+    testImplementation(libs.test.mockito.kotlin)
+    testImplementation(libs.test.junit5)
+    testImplementation(libs.test.junit5.engine)
+    testRuntimeOnly(libs.test.junit5.vintage)
+    testImplementation(libs.test.coroutines)
+    testImplementation(libs.test.coroutines.turbine)
+
     testImplementation(libs.androidx.dataStorePreferences)
 }

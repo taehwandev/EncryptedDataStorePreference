@@ -1,5 +1,4 @@
 import com.android.build.gradle.api.AndroidSourceSet
-import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {

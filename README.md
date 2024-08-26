@@ -2,21 +2,11 @@
 
 Android Encrypted DataStorePreference.
 
-Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.9.10-1.0.13).
+Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp version 1.9.25-1.0.20).
 
 ## Download
 
-Use gradle
-
-alpha - lastVersion 1.9.10-1.0.13-1.2.0-alpha03
-
-```groovy
-ksp "tech.thdev:useful-encrypted-data-store-preferences-ksp:$lastVersion"
-implementation "tech.thdev:useful-encrypted-data-store-preferences-ksp-annotations:$lastVersion"
-implementation "tech.thdev:useful-encrypted-data-store-preferences-security:$lastVersion"
-```
-
-Use gradle.kts
+alpha - lastVersion 1.9.25-1.0.20-1.2.0
 
 ```kotlin
 plugins {
@@ -34,7 +24,7 @@ Release version are available in [Sonatyp's repository.](https://search.maven.or
 
 ## Use Code
 
-Use code - alpha
+Use code - 1.2.0
 
 default value option. and only string.
 
@@ -86,66 +76,6 @@ interface SecurityPreferences {
 
     @GetValue(KEY_LONG, /* option : defaultValue = "123" */)
     fun flowLong(): Flow<Long>
-
-    @SetValue(KEY_LONG)
-    suspend fun setLong(value: Long)
-
-    @ClearValues
-    suspend fun clearAll()
-
-    companion object {
-
-        private const val KEY_INT = "key-int"
-        private const val KEY_DOUBLE = "key-double"
-        private const val KEY_STRING = "key-string"
-        private const val KEY_BOOLEAN = "key-boolean"
-        private const val KEY_FLOAT = "key-float"
-        private const val KEY_LONG = "key-long"
-    }
-}
-```
-
-Use code - stable 1.0.0
-
-```kotlin
-@UsefulPreferences(/* option. Not use security - disableSecurity = true */)
-interface SecurityPreferences {
-
-    @GetValue(KEY_INT)
-    fun getInt(): Flow<Int>
-
-    @GetValue(KEY_INT)
-    suspend fun getIntValue(): Int
-
-    @SetValue(KEY_INT)
-    suspend fun setInt(value: Int)
-
-    @GetValue(KEY_DOUBLE)
-    fun getDouble(): Flow<Double>
-
-    @SetValue(KEY_DOUBLE)
-    suspend fun setDouble(value: Double)
-
-    @GetValue(KEY_STRING)
-    fun getString(): Flow<String>
-
-    @SetValue(KEY_STRING)
-    suspend fun setString(value: String)
-
-    @GetValue(KEY_BOOLEAN)
-    fun getBoolean(): Flow<Boolean>
-
-    @SetValue(KEY_BOOLEAN)
-    suspend fun setBoolean(value: Boolean)
-
-    @GetValue(KEY_FLOAT)
-    fun getFloat(): Flow<Float>
-
-    @SetValue(KEY_FLOAT)
-    suspend fun setFloat(value: Float)
-
-    @GetValue(KEY_LONG)
-    fun getLong(): Flow<Long>
 
     @SetValue(KEY_LONG)
     suspend fun setLong(value: Long)

@@ -1,3 +1,11 @@
+## 1.9.25-1.0.20-1.2.0
+
+- release 1.2.0
+- ETC
+  - Library update.
+  - Kotlin 1.9.25
+  - KSP 1.9.25-1.0.20
+
 ## 1.9.10-1.0.13-1.2.0-alpha03
 
 - Library update.

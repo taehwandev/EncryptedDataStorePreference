@@ -6,7 +6,7 @@ plugins {
 }
 
 ext["libraryName"] = "useful-encrypted-data-store-preferences-ksp"
-ext["libraryVersion"] = Publish.libraryVersion
+ext["libraryVersion"] = libs.versions.libraryVersion.get()
 ext["description"] = Publish.description
 ext["url"] = Publish.publishUrl
 
@@ -26,10 +26,8 @@ dependencies {
 
     implementation(projects.usefulEncryptedDataStorePreferencesKspAnnotations)
 
-    libs.test.run {
-        testImplementation(kotlinCompilTesting)
-        testImplementation(kotlinCompilTestingKSP)
-        testImplementation(junit5)
-        testImplementation(junit5.engine)
-    }
+    testImplementation(libs.test.kotlinCompilTesting)
+    testImplementation(libs.test.kotlinCompilTestingKSP)
+    testImplementation(libs.test.junit5)
+    testImplementation(libs.test.junit5.engine)
 }

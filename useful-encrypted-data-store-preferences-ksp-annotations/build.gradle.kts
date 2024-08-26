@@ -11,6 +11,6 @@ java {
 }
 
 ext["libraryName"] = "useful-encrypted-data-store-preferences-ksp-annotations"
-ext["libraryVersion"] = Publish.libraryVersion
+ext["libraryVersion"] = libs.versions.libraryVersion.get()
 ext["description"] = Publish.description
 ext["url"] = Publish.publishUrl
