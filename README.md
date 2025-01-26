@@ -6,7 +6,7 @@ Include Data Encrypt in Android DataStorePreference. This library use KSP(ksp ve
 
 ## Download
 
-alpha - lastVersion 1.9.25-1.0.20-1.2.0
+lastVersion 2.0.21-1.0.28-1.2.0
 
 ```kotlin
 plugins {
