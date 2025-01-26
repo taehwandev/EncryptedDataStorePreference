@@ -40,10 +40,6 @@ android {
         jvmTarget = "17"
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compilerVersion.get()
-    }
-
     buildTypes {
         sourceSets.getByName("debug") {
             kotlin.srcDir("build/generated/ksp/debug/kotlin")

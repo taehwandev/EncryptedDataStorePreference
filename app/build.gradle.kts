@@ -3,6 +3,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" // this version matches your Kotlin version
 }
 
 android {
@@ -47,10 +48,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compilerVersion.get()
     }
 
     packaging {
